@@ -41,6 +41,6 @@ public class TestCalculator {
 	
 	@Test
 	public void testSubtractionNegative() {
-		assertEquals(0, calc.subtract(-3,-3));
+		assertEquals(0, calc.sub(-3,-3));
 	}
 }
