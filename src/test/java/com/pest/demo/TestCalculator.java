@@ -31,7 +31,7 @@ public class TestCalculator {
 	
 	@Test
 	public void testSubtraction() {
-		assertEquals(3, calc.sub(6,3);
+		assertEquals(3, calc.sub(6,3));
 	}
 
 	@Test
