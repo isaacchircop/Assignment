@@ -40,13 +40,7 @@ public class TestCalculator {
 	}
 	
 	@Test
-	public void testFailDivision() {
-		assertEquals(6, calc.divide(2,3));
+	public void testSubtractionNegative() {
+		assertEquals(0, calc.subtract(-3,-3));
 	}
-	
-	@Test
-	public void testFailSub() {
-		assertEquals(-4, calc.sub(4,0));
-	}
-
 }
