@@ -38,5 +38,15 @@ public class TestCalculator {
 	public void testMultiplication() {
 		assertEquals(15, calc.multiply(5,3));
 	}
+	
+	@Test
+	public void testFailDivision() {
+		assertEquals(6, calc.divide(2,3));
+	}
+	
+	@Test
+	public void testFailSub() {
+		assertEquals(-4, calc.sub(4,0));
+	}
 
 }
