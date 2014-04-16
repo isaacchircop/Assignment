@@ -12,34 +12,16 @@ public class Interface {
         int players = getPlayers();
         int n = getMap(players);
         
-        // Get a newly created map
+        // Create Map
         
         Tile[][] map = createMap(n);
         
-        // Get array of buffered writers - used to output map to html files
+        // Output Map to HTML Files
         
-        BufferedWriter [] bw = getBW(players);
+        File[] files = getHTMLFiles(players);
+        htmlOutput(files, n, players);
         
-        String html = getHTMLCode(n);
-        
-        for (int i = 0; i < players; i++) {
-        
-            try {
-            
-                bw[i].write(html);
-                bw[i].close();
-                
-            }
-        
-            catch (IOException e) {
-                
-                e.printStackTrace();
-            
-            }
-            
-        }
-        
-        // Display map
+        // Display map on console
         
         for (int i = 0; i < n; i++) {
         
@@ -137,73 +119,91 @@ public class Interface {
     
     }
     
-    public static BufferedWriter[] getBW(int n) {
-    
+    public static File[] getHTMLFiles(int numOfFiles) {
+
         // Create array of files
         
-        File[] files = new File[n];
+        File[] files = new File[numOfFiles];
         
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < numOfFiles; i++) {
         
             files[i] = new File ("map_name_" + i + ".html");
         
         }
         
-        // Create array of file writers
+        return files;
+
+    }
+    
+    public static File[] getCSSFiles(int numOfFiles) {
+    
+        // Create array of files
         
-        FileWriter [] fw = new FileWriter[n];
+        File[] files = new File[numOfFiles];
         
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < numOfFiles; i++) {
         
-            try {
-            
-                fw[i] = new FileWriter (files[i]);
-                
-            }
-            
-            catch (IOException e) {
-            
-                e.printStackTrace();
-                
-            }
+            files[i] = new File ("map_name_" + i + ".css");
         
         }
         
-        // Create array of buffered writers
-        
-        BufferedWriter [] bw = new BufferedWriter[n];
-        
-        for (int i = 0; i < n; i++) {
-        
-            bw[i] = new BufferedWriter (fw[i]);
-        
-        }
-        
-        return bw;
+        return files;
     
     }
     
-    public static String getHTMLCode(int n) {
+    public static String getBodyCode(int n) {
     
-        String html = "<html><body><table border=\"1\">";
+        String body = "<body><table border=\"1\">";
         
         for (int i = 0; i < n; i++) {
             
-            html = html + "<tr>";
+            body = body + "<tr>";
         
             for (int j = 0; j < n; j++) {
             
-                html = html + "<td bgcolor=\"#aaaaaa\" width = \"50\" height = \"50\"></td>";
+                body = body + "<td class = \"" + i + j + "\" bgcolor=\"#aaaaaa\" width = \"50\" height = \"50\"></td>";
             
             }
             
-            html = html + "</tr>";
+            body = body + "</tr>";
         
         }
         
-        html = html + "</table></body></html>";
+        body = body + "</table></body>";
         
-        return html;
+        return body;
+    
+    }
+    
+    public static void htmlOutput (File[] files, int n, int players) {
+    
+        FileWriter fw;
+        BufferedWriter bw;
+        
+        String body = getBodyCode(n);
+        
+        for (int i = 0; i < players; i++) {
+            
+            String head = "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"map_name_" + i + ".css\"></head>";
+            String html = "<html>" + head + body + "</html>";
+        
+            try {
+            
+                fw = new FileWriter(files[i]);
+                bw = new BufferedWriter (fw);
+                
+                bw.write(html);
+                bw.close();
+                
+            }
+        
+            catch (IOException e) {
+                
+                e.printStackTrace();
+            
+            }
+            
+        }
     
     }
     
