@@ -10,30 +10,23 @@ public class Interface {
         // Get number of players and map size
     
         int players = getPlayers();
-        int n = getMap(players);
+        int size = getMap(players);
         
         // Create Map
         
-        Tile[][] map = createMap(n);
+        Tile[][] map = createMap(size);
         
+        // Create starting positions and obtain player objects
+        
+        Player[] playersArray = generateStart (map, players);
+                
         // Output Map to HTML Files
         
-        File[] files = getHTMLFiles(players);
-        htmlOutput(files, n, players);
+        htmlOutput(map.length, playersArray);
         
-        // Display map on console
+        // Create inital CSS Files
         
-        for (int i = 0; i < n; i++) {
-        
-            for (int j = 0; j < n; j++) {
-            
-                System.out.print (map[i][j] + "  ");
-            
-            }
-            
-            System.out.println ("");
-        
-        }
+        cssOutput(map, playersArray);
         
     }
     
@@ -119,35 +112,29 @@ public class Interface {
     
     }
     
-    public static File[] getHTMLFiles(int numOfFiles) {
+    public static Player[] generateStart (Tile[][] map, int players) {
+    
+        int length = map.length;
+        
+        Player[] playersArray = new Player[players];
+        
+        Random rand = new Random();
+        int row, col;
+        
+        for (int i = 0; i < players; i++) {
+            
+            do {
 
-        // Create array of files
-        
-        File[] files = new File[numOfFiles];
-        
-        for (int i = 0; i < numOfFiles; i++) {
-        
-            files[i] = new File ("map_name_" + i + ".html");
+                row = rand.nextInt(length);
+                col = rand.nextInt(length);
+
+            } while (map[row][col] != Tile.Grass);
+            
+            playersArray[i] = new Player(row,col, i);
         
         }
         
-        return files;
-
-    }
-    
-    public static File[] getCSSFiles(int numOfFiles) {
-    
-        // Create array of files
-        
-        File[] files = new File[numOfFiles];
-        
-        for (int i = 0; i < numOfFiles; i++) {
-        
-            files[i] = new File ("map_name_" + i + ".css");
-        
-        }
-        
-        return files;
+        return playersArray;
     
     }
     
@@ -161,7 +148,7 @@ public class Interface {
         
             for (int j = 0; j < n; j++) {
             
-                body = body + "<td class = \"" + i + j + "\" bgcolor=\"#aaaaaa\" width = \"50\" height = \"50\"></td>";
+                body = body + "<td id = \"cell" + i + j + "\" width = \"50\" height = \"50\"></td>";
             
             }
             
@@ -175,21 +162,21 @@ public class Interface {
     
     }
     
-    public static void htmlOutput (File[] files, int n, int players) {
+    public static void htmlOutput (int mapSize, Player[] players) {
     
         FileWriter fw;
         BufferedWriter bw;
         
-        String body = getBodyCode(n);
+        String body = getBodyCode(mapSize);
         
-        for (int i = 0; i < players; i++) {
+        for (int i = 0; i < players.length; i++) {
             
             String head = "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"map_name_" + i + ".css\"></head>";
             String html = "<html>" + head + body + "</html>";
         
             try {
             
-                fw = new FileWriter(files[i]);
+                fw = new FileWriter(players[i].getHTML());
                 bw = new BufferedWriter (fw);
                 
                 bw.write(html);
@@ -203,6 +190,58 @@ public class Interface {
             
             }
             
+        }
+    
+    }
+
+    public static void cssOutput (Tile[][] map, Player[] players) {
+        
+        FileWriter fw;
+        BufferedWriter bw;
+    
+        for (int i = 0; i < players.length; i++) {
+            
+            int row = players[i].getCurrentRow();
+            int col = players[i].getCurrentCol();
+            
+            String cellID = "cell" + row + col;
+            
+            String colour = "";
+            
+            switch (map[row][col]) {
+            
+                case Grass:
+                    colour = "green";
+                    break;
+                    
+                case Water:
+                    colour = "blue";
+                    break;
+                    
+                default:
+                    colour = "yellow";
+                    break;
+                 
+            }
+            
+            String cssCode = "td {background-color: #aaaaaa; border:1px solid white;} td#" + cellID + "{background-color:" + colour + ";}";
+        
+            try {
+            
+                fw = new FileWriter (players[i].getCSS(), true);
+                bw = new BufferedWriter (fw);
+                
+                bw.write(cssCode);
+                bw.close();
+                
+            }
+            
+            catch (IOException e) {
+            
+                e.printStackTrace();
+            
+            }
+        
         }
     
     }
