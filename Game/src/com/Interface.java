@@ -21,79 +21,87 @@ public class Interface {
         // Create inital CSS Files
         map.outputUpdatedMap(players);
         
-        System.out.println("\n===================================================");
-        System.out.println ("Round 1: Move (U)p (D)own (L)eft or (R)ight\n");
+        int rndCnt = 0;
         
-        Scanner k = new Scanner (System.in);
+        do {
         
-        for (int i = 0; i < players.length; i++) {
+            rndCnt++;
             
-            boolean validMove = false;
-            
-            do {
-        
-                System.out.print ("Awaiting Input from Player " + i + ": ");
+            System.out.println("\n===================================================");
+            System.out.println ("Round " + rndCnt + ": Move (U)p (D)own (L)eft or (R)ight\n");
 
-                char move = k.next().toUpperCase().charAt(0);
-                
-                System.out.println();
+            Scanner k = new Scanner (System.in);
 
-                int row = players[i].getCurrentRow();
-                int col = players[i].getCurrentCol();
-                
-                boolean validCharacter = true;
-                
-                switch (move) {
+            for (int i = 0; i < players.length; i++) {
 
-                    case 'U':
+                boolean validMove = false;
 
-                        row--;
-                        break;
+                do {
 
-                    case 'D':
+                    System.out.print ("Awaiting Input from Player " + i + ": ");
 
-                        row++;
-                        break;
+                    char move = k.next().toUpperCase().charAt(0);
 
-                    case 'L':
-                        
-                        col--;
-                        break;
+                    System.out.println();
 
-                    case 'R':
-                        
-                        col++;
-                        break;
-                        
-                    default:
-                        
-                        System.out.println ("Invalid Move!  Please input one of these character options: U, D, L, R");
-                        validCharacter = false;
-                        break;
-                        
-                }
-                
-                if (validCharacter == true) {
-                
-                    validMove = map.checkInRange(row, col);
-                
-                    if (validMove) {
-                    
-                        players[i].updatePosition (row, col);
+                    int row = players[i].getCurrentRow();
+                    int col = players[i].getCurrentCol();
 
-                    } else {
+                    boolean validCharacter = true;
 
-                        System.out.println ("Invalid Move!  You tried to move outside map limit.  Please try again");
+                    switch (move) {
+
+                        case 'U':
+
+                            row--;
+                            break;
+
+                        case 'D':
+
+                            row++;
+                            break;
+
+                        case 'L':
+
+                            col--;
+                            break;
+
+                        case 'R':
+
+                            col++;
+                            break;
+
+                        default:
+
+                            System.out.println ("Invalid Move!  Please input one of these character options: U, D, L, R");
+                            validCharacter = false;
+                            break;
 
                     }
-                    
-                }
-                
-            } while (validMove == false);
+
+                    if (validCharacter == true) {
+
+                        validMove = map.checkInRange(row, col);
+
+                        if (validMove) {
+
+                            players[i].updatePosition (row, col);
+
+                        } else {
+
+                            System.out.println ("Invalid Move!  You tried to move outside map limit.  Please try again");
+
+                        }
+
+                    }
+
+                } while (validMove == false);
+
+            }
+            
+        } while (map.outputUpdatedMap(players) == false);
         
-        }
-        
-        map.outputUpdatedMap(players);
+        System.out.println ("Game Finished!");
         
     }
     

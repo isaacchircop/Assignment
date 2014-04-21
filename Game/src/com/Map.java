@@ -92,7 +92,9 @@ public class Map {
     
     }
     
-    public void outputUpdatedMap (Player[] players) {
+    public boolean outputUpdatedMap (Player[] players) {
+        
+        boolean treasureFound = false;
         
         FileWriter fw;
         BufferedWriter bw;
@@ -103,28 +105,34 @@ public class Map {
             int col = players[i].getCurrentCol();
             
             String cellID = "cell" + row + col;
+            String currentCell = cellID;
             
             String colour = "";
+            String currentColour = colour;
             
             switch (map[row][col]) {
             
                 case Grass:
-                    colour = "green";
+                    currentColour = colour = "green";
                     break;
                     
                 case Water:
                     colour = "blue";
+                    currentCell = "cell" + players[i].getInitRow() + players[i].getInitCol();
+                    players[i].resetPosition();
+                    currentColour = "green";
                     break;
                     
                 default:
-                    colour = "yellow";
+                    currentColour = colour = "yellow";
+                    treasureFound = true;
                     break;
                  
             }
             
             String cssCode = "td#" + cellID + "{background: " + colour + ";}\n";
             
-            String imageCode = "td#" + cellID + "{background: " + colour + " url(\"pin.png\") no-repeat center center; background-size:50%}\n";
+            String imageCode = "td#" + currentCell + "{background: " + currentColour + " url(\"pin.png\") no-repeat center center; background-size:50%}\n";
             
             try {
                 
@@ -169,6 +177,8 @@ public class Map {
             }
         
         }
+        
+        return treasureFound;
     
     }
     

@@ -54,10 +54,29 @@ public class Player {
     
     }
     
+    public int getInitRow() {
+    
+        return initRow;
+    
+    }
+    
+    public int getInitCol() {
+    
+        return initCol;
+    
+    }
+    
     public void updatePosition(int row, int col) {
     
         currRow = row;
         currCol = col;
+    
+    }
+
+    public void resetPosition() {
+    
+        currRow = initRow;
+        currCol = initCol;
     
     }
     
