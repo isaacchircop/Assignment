@@ -54,4 +54,11 @@ public class Player {
     
     }
     
+    public void updatePosition(int row, int col) {
+    
+        currRow = row;
+        currCol = col;
+    
+    }
+    
 }

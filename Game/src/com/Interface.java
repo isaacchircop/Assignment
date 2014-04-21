@@ -1,7 +1,6 @@
 package com;
 
 import java.util.*;
-import java.io.*;
 
 public class Interface {
     
@@ -9,24 +8,92 @@ public class Interface {
         
         // Get number of players and map size
     
-        int players = getPlayers();
-        int size = getMap(players);
+        int numPlayers = getPlayers();
+        int size = getMapSize(numPlayers);
         
-        // Create Map
-        
-        Tile[][] map = createMap(size);
-        
-        // Create starting positions and obtain player objects
-        
-        Player[] playersArray = generateStart (map, players);
+        // Create Map and Players
+        Map map = new Map (size);
+        Player[] players = createPlayers(map, numPlayers);
                 
         // Output Map to HTML Files
-        
-        htmlOutput(map.length, playersArray);
+        map.outputInitialMap(players);
         
         // Create inital CSS Files
+        map.outputUpdatedMap(players);
         
-        cssOutput(map, playersArray);
+        System.out.println("\n===================================================");
+        System.out.println ("Round 1: Move (U)p (D)own (L)eft or (R)ight\n");
+        
+        Scanner k = new Scanner (System.in);
+        
+        for (int i = 0; i < players.length; i++) {
+            
+            boolean validMove = false;
+            
+            do {
+        
+                System.out.print ("Awaiting Input from Player " + i + ": ");
+
+                char move = k.next().toUpperCase().charAt(0);
+                
+                System.out.println();
+
+                int row = players[i].getCurrentRow();
+                int col = players[i].getCurrentCol();
+                
+                boolean validCharacter = true;
+                
+                switch (move) {
+
+                    case 'U':
+
+                        row--;
+                        break;
+
+                    case 'D':
+
+                        row++;
+                        break;
+
+                    case 'L':
+                        
+                        col--;
+                        break;
+
+                    case 'R':
+                        
+                        col++;
+                        break;
+                        
+                    default:
+                        
+                        System.out.println ("Invalid Move!  Please input one of these character options: U, D, L, R");
+                        validCharacter = false;
+                        break;
+                        
+                }
+                
+                if (validCharacter == true) {
+                
+                    validMove = map.checkInRange(row, col);
+                
+                    if (validMove) {
+                    
+                        players[i].updatePosition (row, col);
+
+                    } else {
+
+                        System.out.println ("Invalid Move!  You tried to move outside map limit.  Please try again");
+
+                    }
+                    
+                }
+                
+            } while (validMove == false);
+        
+        }
+        
+        map.outputUpdatedMap(players);
         
     }
     
@@ -50,7 +117,7 @@ public class Interface {
     
     }
     
-    public static int getMap(int players) {
+    public static int getMapSize(int players) {
         
         Scanner k = new Scanner (System.in);
     
@@ -85,36 +152,9 @@ public class Interface {
     
     }
     
-    public static Tile[][] createMap(int n) {
+    public static Player[] createPlayers (Map map, int players) {
     
-        Tile[][] map = new Tile [n][n];
-        
-        for (int i = 0; i < n; i++) {
-        
-            for (int j = 0; j < n; j++) {
-            
-                map[i][j] = Tile.getRandomTile();
-            
-            }
-        
-        }
-        
-        // Select a random row and column and mark it as a treasure tile
-        
-        Random rand = new Random();
-        
-        int col = rand.nextInt(n);
-        int row = rand.nextInt(n);
-        
-        map[row][col] = Tile.Treasure;
-        
-        return map;
-    
-    }
-    
-    public static Player[] generateStart (Tile[][] map, int players) {
-    
-        int length = map.length;
+        int length = map.getLength();
         
         Player[] playersArray = new Player[players];
         
@@ -128,7 +168,7 @@ public class Interface {
                 row = rand.nextInt(length);
                 col = rand.nextInt(length);
 
-            } while (map[row][col] != Tile.Grass);
+            } while (map.getTile(row, col) != Tile.Grass);
             
             playersArray[i] = new Player(row,col, i);
         
@@ -137,113 +177,6 @@ public class Interface {
         return playersArray;
     
     }
-    
-    public static String getBodyCode(int n) {
-    
-        String body = "<body><table border=\"1\">";
-        
-        for (int i = 0; i < n; i++) {
             
-            body = body + "<tr>";
-        
-            for (int j = 0; j < n; j++) {
-            
-                body = body + "<td id = \"cell" + i + j + "\" width = \"50\" height = \"50\"></td>";
-            
-            }
-            
-            body = body + "</tr>";
-        
-        }
-        
-        body = body + "</table></body>";
-        
-        return body;
-    
-    }
-    
-    public static void htmlOutput (int mapSize, Player[] players) {
-    
-        FileWriter fw;
-        BufferedWriter bw;
-        
-        String body = getBodyCode(mapSize);
-        
-        for (int i = 0; i < players.length; i++) {
-            
-            String head = "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"map_name_" + i + ".css\"></head>";
-            String html = "<html>" + head + body + "</html>";
-        
-            try {
-            
-                fw = new FileWriter(players[i].getHTML());
-                bw = new BufferedWriter (fw);
-                
-                bw.write(html);
-                bw.close();
-                
-            }
-        
-            catch (IOException e) {
-                
-                e.printStackTrace();
-            
-            }
-            
-        }
-    
-    }
-
-    public static void cssOutput (Tile[][] map, Player[] players) {
-        
-        FileWriter fw;
-        BufferedWriter bw;
-    
-        for (int i = 0; i < players.length; i++) {
-            
-            int row = players[i].getCurrentRow();
-            int col = players[i].getCurrentCol();
-            
-            String cellID = "cell" + row + col;
-            
-            String colour = "";
-            
-            switch (map[row][col]) {
-            
-                case Grass:
-                    colour = "green";
-                    break;
-                    
-                case Water:
-                    colour = "blue";
-                    break;
-                    
-                default:
-                    colour = "yellow";
-                    break;
-                 
-            }
-            
-            String cssCode = "td {background-color: #aaaaaa; border:1px solid white;} td#" + cellID + "{background-color:" + colour + ";}";
-        
-            try {
-            
-                fw = new FileWriter (players[i].getCSS(), true);
-                bw = new BufferedWriter (fw);
-                
-                bw.write(cssCode);
-                bw.close();
-                
-            }
-            
-            catch (IOException e) {
-            
-                e.printStackTrace();
-            
-            }
-        
-        }
-    
-    }
     
 }
