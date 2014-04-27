@@ -112,7 +112,7 @@ public class Interface {
         Scanner k = new Scanner (System.in);
         int players = k.nextInt();
     
-        while (players < 2 || players > 8) {
+        while (playerNumberCheck(players) == false) {
 
             System.out.println ("\nInvalid Input!  Minimum: 2 Players, Maximum: 8 Players\n");
             
@@ -134,7 +134,7 @@ public class Interface {
         
         if (players <= 4) {
         
-            while (n < 5 || n > 50) {
+            while (mapSizeCheck(n,players) == false) {
             
                 System.out.println ("\nInvalid Input!  Minimum n: 5, Maximum n: 50\n");
             
@@ -145,7 +145,7 @@ public class Interface {
         
         } else {
         
-            while (n < 8 || n > 50) {
+            while (mapSizeCheck(n,players) == false) {
             
                 System.out.println ("\nInvalid Input!  Minimum n: 8, Maximum n: 50\n");
             
@@ -184,6 +184,29 @@ public class Interface {
         
         return playersArray;
     
+    }
+    
+    public static boolean playerNumberCheck(int players) {
+        
+        if (players < 2 || players > 8) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    public static boolean mapSizeCheck(int size, int players){
+        
+        if((players <= 4) && (size < 5 || size > 50)){
+            return false;
+        }
+        else if((players >= 5) && (size < 8 || size > 50)){
+            return false;            
+        }
+        else {
+            return true;
+        }
     }
             
     
