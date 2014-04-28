@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 import com.Interface;
+import com.Player;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,6 +22,7 @@ public class InterfaceClassTest {
     
     @BeforeClass
     public static void setUpClass() {
+        
     }
     
     @AfterClass
@@ -29,6 +31,7 @@ public class InterfaceClassTest {
     
     @Before
     public void setUp() {
+        
     }
     
     @After
@@ -75,5 +78,15 @@ public class InterfaceClassTest {
     public void testMapSizeCheckInvalidSize4() {
         
         assertFalse("Checking whether a map size of 5 is invalid with 6 players", Interface.mapSizeCheck(5, 6));
+    }
+    @Test 
+    public void testCheckNumberOfPlayersValid() {
+        Player [] players = {new Player(0,0,0),new Player(3,3,1)};
+        assertTrue("Checking whether 2 players exist in the array", Interface.checkNumberOfPlayers(players, 2));
+    }
+    @Test 
+    public void testCheckNumberOfPlayersInvalid() {
+        Player [] players = {new Player(0,0,0),new Player(3,3,1)};
+        assertFalse("Checking whether 3 players exist in the array", Interface.checkNumberOfPlayers(players, 3));
     }
 }
