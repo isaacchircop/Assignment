@@ -23,6 +23,7 @@ public class Interface {
         
         if(checkNumberOfPlayers(players,players.length)){
             if(checkPlayerTiles(players,map)){
+            
                 int rndCnt = 0;
         
                 do {
@@ -112,8 +113,8 @@ public class Interface {
             
                 
     }
-            
-}
+    }            
+
             
 
         
@@ -233,8 +234,10 @@ public class Interface {
             int column = players[playernum].getCurrentCol();
             int row = players[playernum].getCurrentRow();
             if(map.getTile(row, column) != Tile.Grass){
-                greentileflag = false;                
+                greentileflag = false;  
+                break;
             }
+            playernum++;
                         
         }
         return greentileflag;

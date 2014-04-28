@@ -1,0 +1,2 @@
+td#cell04{background: green;}
+td#cell04{background: green url("pin.png") no-repeat center center; background-size:50%}
