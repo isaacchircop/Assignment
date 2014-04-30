@@ -78,7 +78,7 @@ public class Interface {
 
                     }
 
-                    if (validCharacter == true) {
+                    if (validCharacter) {
 
                         validMove = map.checkInRange(row, col);
 
@@ -94,11 +94,11 @@ public class Interface {
 
                     }
 
-                } while (validMove == false);
+                } while (!validMove);
 
             }
 
-        } while (map.outputUpdatedMap(players) == false);
+        } while (!map.outputUpdatedMap(players));
 
         System.out.println("Game Finished!");
 
@@ -111,14 +111,13 @@ public class Interface {
         Scanner k = new Scanner(System.in);
         int players = k.nextInt();
 
-
         while (!playerNumberCheck(players)) {
-
 
             System.out.println("\nInvalid Input!  Minimum: 2 Players, Maximum: 8 Players\n");
 
             System.out.print("Number of players: ");
             players = k.nextInt();
+
         }
 
         return players;
@@ -132,27 +131,20 @@ public class Interface {
         System.out.print("\nMap height and width (n): ");
         int n = k.nextInt();
 
-        if (players <= 4) {
+        while (!mapSizeCheck(n, players)) {
 
-            while (!mapSizeCheck(n, players)) {
+            if (players <= 4) {
 
                 System.out.println("\nInvalid Input!  Minimum n: 5, Maximum n: 50\n");
 
-                System.out.println("Map height and width (n): ");
-                n = k.nextInt();
-
-            }
-
-        } else {
-
-            while (!mapSizeCheck(n, players)) {
+            } else {
 
                 System.out.println("\nInvalid Input!  Minimum n: 8, Maximum n: 50\n");
 
-                System.out.println("Map height and width (n): ");
-                n = k.nextInt();
-
             }
+
+            System.out.print("Map height and width (n): ");
+            n = k.nextInt();
 
         }
 

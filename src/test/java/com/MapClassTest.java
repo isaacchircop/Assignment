@@ -1,43 +1,22 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package com;
 
 import com.Map;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Daniel
- */
 public class MapClassTest {
     
     public MapClassTest() {
     }
     
     @Test
-    public void testCheckInRangeMethodValidRange() {
-        
-        Map m = new Map(5);    
-        assertTrue("Checking whether (4,2) is valid in a 5x5 map", m.checkInRange(4, 2));
+    public void testValidRange() {
+
+        Map m = new Map(5);
+
+        assertTrue("Checking if tile (4,2) exists in a map of size 5", m.checkInRange(4, 2));
+        assertFalse("Checking if tile (6,2) exists in a map of size 5", m.checkInRange(6,2));
     
-    }
-    @Test
-    public void testCheckInRangeMethodInvalidRow() {
-        
-        Map m = new Map(8);    
-        assertFalse("Checking whether (2,10) is valid on a 8x8 map ", m.checkInRange(2,10));        
-    }
-    @Test
-    public void testCheckInRangeMethodInvalidColumn() {
-        
-        Map m = new Map(8);    
-        assertFalse("Checking whether (12,5) is valid on a 8x8 map ", m.checkInRange(12,5));        
     }
 
     @Test
