@@ -79,14 +79,4 @@ public class InterfaceClassTest {
         
         assertFalse("Checking whether a map size of 5 is invalid with 6 players", Interface.mapSizeCheck(5, 6));
     }
-    @Test 
-    public void testCheckNumberOfPlayersValid() {
-        Player [] players = {new Player(0,0,0),new Player(3,3,1)};
-        assertTrue("Checking whether 2 players exist in the array", Interface.checkNumberOfPlayers(players, 2));
-    }
-    @Test 
-    public void testCheckNumberOfPlayersInvalid() {
-        Player [] players = {new Player(0,0,0),new Player(3,3,1)};
-        assertFalse("Checking whether 3 players exist in the array", Interface.checkNumberOfPlayers(players, 3));
-    }
 }
