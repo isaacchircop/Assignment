@@ -29,9 +29,7 @@ public class Map {
         int row = rand.nextInt(n);
         
         map[row][col] = Tile.Treasure;
-        
-        
-    
+
     }
         
     private String getBodyCode() {

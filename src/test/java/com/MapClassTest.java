@@ -20,24 +20,6 @@ public class MapClassTest {
     public MapClassTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
     @Test
     public void testCheckInRangeMethodValidRange() {
         
@@ -57,4 +39,15 @@ public class MapClassTest {
         Map m = new Map(8);    
         assertFalse("Checking whether (12,5) is valid on a 8x8 map ", m.checkInRange(12,5));        
     }
+
+    @Test
+    public void testCorrectMapCreation() {
+
+        int size = 5;
+        Map map = new Map(5);
+
+        assertEquals("Checking if map of correct size is created", map.getLength(), size);
+
+    }
+
 }
