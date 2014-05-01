@@ -1,18 +1,9 @@
-package com;/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package com;
 
 import org.junit.*;
-
 import java.io.File;
-
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Daniel
- */
 public class PlayerClassTest {
 
     public PlayerClassTest() {
@@ -21,34 +12,20 @@ public class PlayerClassTest {
     @Test
     public void testGetHTML() {
 
-        Player p1 = new Player(0,0,0);
-        assertTrue("Testing whether getHTML() returns a File type object",p1.getHTML() instanceof File);
+        Player player = new Player(0,0,0);
+        File htmlFile = player.getHTML();
+
+        assertTrue("Testing whether getHTML() returns an HTML File Type", htmlFile.getPath().endsWith(".html"));
 
     }
 
     @Test
     public void testGetCSS() {
 
-        Player p1 = new Player(0,0,0);
-        assertTrue("Testing whether getCSS() returns a File type object",p1.getCSS() instanceof File);
+        Player player = new Player(0,0,0);
+        File cssFile = player.getHTML();
 
-    }
-
-    @Test
-    public void testGetCurrentRow() {
-
-        Player p1 = new Player(0,0,0);
-        p1.updatePosition(3,4);
-        assertEquals("Testing whether getCurrentRow() returns 3",p1.getCurrentRow(),3);
-
-    }
-
-    @Test
-    public void testGetCurrentColumn() {
-
-        Player p1 = new Player(0,0,0);
-        p1.updatePosition(3,4);
-        assertEquals("Testing whether getCurrentCol() returns 4",p1.getCurrentCol(),4);
+        assertTrue("Testing whether getCSS() returns a CSS File Type", cssFile.getPath().endsWith(".css"));
 
     }
 
@@ -67,4 +44,40 @@ public class PlayerClassTest {
         assertEquals("Testing whether getInitColumn() returns 6",p1.getInitCol(),6);
 
     }
+
+    @Test
+    public void testGetCurrentPosition() {
+
+        Player p1 = new Player(0,0,0);
+        p1.updatePosition(3,4);
+
+        assertEquals("Testing whether getCurrentRow() returns 3", p1.getCurrentRow(),3);
+        assertEquals("Testing whether getCurrentCol() returns 4",p1.getCurrentCol(),4);
+
+    }
+
+    @Test
+    public void testPositionChanges() {
+
+        int initRow = 0;
+        int initCol = 0;
+
+        Player player = new Player (initRow, initCol, 0);
+
+        int newRow = 5;
+        int newCol = 6;
+
+        player.updatePosition(5, 6);
+
+        assertEquals("Testing whether getCurrentRow() returns 3", player.getCurrentRow(), newRow);
+        assertEquals("Testing whether getCurrentCol() returns 4",player.getCurrentCol(), newCol);
+
+        player.resetPosition();
+
+        assertEquals("Testing if new row is equal to initial row", player.getCurrentRow(), initRow);
+        assertEquals("Testing if new col is equal to initial col", player.getCurrentCol(), initCol);
+
+    }
+
+
 }
