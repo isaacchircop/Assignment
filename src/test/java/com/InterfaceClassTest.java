@@ -1,9 +1,8 @@
-/*
+package com;/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.Interface;
-import com.Player;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -85,8 +84,26 @@ public class InterfaceClassTest {
         assertTrue("Checking whether 2 players exist in the array", Interface.checkNumberOfPlayers(players, 2));
     }
     @Test 
+    public void testGetMapSizeValid4Players() {
+        assertEquals(4,Interface.getMapSize(4));
+    }
+    @Test
+    public void testGetMapSizeValid6Players() {
+        assertEquals(6,Interface.getMapSize(6));
+    }
+    @Test
+    public void testGetPlayersValid5PLayers() {
+        assertEquals(5,Interface.getPlayers());
+    }
+    @Test
     public void testCheckNumberOfPlayersInvalid() {
         Player [] players = {new Player(0,0,0),new Player(3,3,1)};
-        assertFalse("Checking whether 3 players exist in the array", Interface.checkNumberOfPlayers(players, 3));
+        assertFalse("Testing whether 3 players exist in the array", Interface.checkNumberOfPlayers(players, 3));
+    }
+    @Test
+    public void testPerformUpdateValid(){
+        Player [] players = {new Player(0,0,0),new Player(3,3,1)};
+        Map map = new Map(5);
+        assertTrue("Testing whether the map update can be performed",Interface.performUpdate(players,map));
     }
 }

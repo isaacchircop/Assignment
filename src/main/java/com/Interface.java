@@ -20,105 +20,25 @@ public class Interface {
         
         // Create inital CSS Files
         map.outputUpdatedMap(players);
+
+        boolean c;
         
         if(checkNumberOfPlayers(players,players.length)){
             if(checkPlayerTiles(players,map)){
-            
-                int rndCnt = 0;
-        
                 do {
+                    c = performUpdate(players,map);
+                }while(!c);
+                System.out.println ("Game Finished!");
         
-                    rndCnt++;
-            
-                    System.out.println("\n===================================================");
-                    System.out.println ("Round " + rndCnt + ": Move (U)p (D)own (L)eft or (R)ight\n");
-
-                    Scanner k = new Scanner (System.in);
-
-                    for (int i = 0; i < players.length; i++) {
-
-                        boolean validMove = false;
-
-                    do {
-
-                        System.out.print ("Awaiting Input from Player " + i + ": ");
-
-                        char move = k.next().toUpperCase().charAt(0);
-
-                        System.out.println();
-
-                        int row = players[i].getCurrentRow();
-                        int col = players[i].getCurrentCol();
-
-                        boolean validCharacter = true;
-
-                        switch (move) {
-
-                            case 'U':
-
-                                row--;
-                                break;
-
-                            case 'D':
-
-                                row++;
-                                break;
-
-                            case 'L':
-
-                                col--;
-                                break;
-
-                            case 'R':
-
-                                col++;
-                                break;
-
-                            default:
-
-                                System.out.println ("Invalid Move!  Please input one of these character options: U, D, L, R");
-                                validCharacter = false;
-                                break;
-
-                        }
-
-                        if (validCharacter == true) {
-
-                            validMove = map.checkInRange(row, col);
-
-                            if (validMove) {
-
-                                players[i].updatePosition (row, col);
-
-                            } else {
-
-                                System.out.println ("Invalid Move!  You tried to move outside map limit.  Please try again");
-
-                            }
-
-                        }
-
-                    } while (validMove == false);
-
-                }
-            
-            } while (map.outputUpdatedMap(players) == false);
-        
-            System.out.println ("Game Finished!");
-        
-        }
-        else {
-            System.out.println("Error Storing Players\n");
-        }
+            }
+            else {
+                System.out.println("Error Storing Players\n");
+            }
             
                 
-    }
+        }
     }            
 
-            
-
-        
-        
     
     public static int getPlayers() {
     
@@ -254,6 +174,89 @@ public class Interface {
         }
         
     }
-            
-    
+
+    public static boolean performUpdate(Player[] players, Map map){
+
+        int rndCnt = 0;
+
+        do {
+
+            rndCnt++;
+
+            System.out.println("\n===================================================");
+            System.out.println ("Round " + rndCnt + ": Move (U)p (D)own (L)eft or (R)ight\n");
+
+            Scanner k = new Scanner (System.in);
+
+            for (int i = 0; i < players.length; i++) {
+
+                boolean validMove = false;
+
+                do {
+
+                    System.out.print ("Awaiting Input from Player " + i + ": ");
+
+                    char move = k.next().toUpperCase().charAt(0);
+
+                    System.out.println();
+
+                    int row = players[i].getCurrentRow();
+                    int col = players[i].getCurrentCol();
+
+                    boolean validCharacter = true;
+
+                    switch (move) {
+
+                        case 'U':
+
+                            row--;
+                            break;
+
+                        case 'D':
+
+                            row++;
+                            break;
+
+                        case 'L':
+
+                            col--;
+                            break;
+
+                        case 'R':
+
+                            col++;
+                            break;
+
+                        default:
+
+                            System.out.println ("Invalid Move!  Please input one of these character options: U, D, L, R");
+                            validCharacter = false;
+                            break;
+
+                    }
+
+                    if (validCharacter == true) {
+
+                        validMove = map.checkInRange(row, col);
+
+                        if (validMove) {
+
+                            players[i].updatePosition (row, col);
+
+                        } else {
+
+                            System.out.println ("Invalid Move!  You tried to move outside map limit.  Please try again");
+
+                        }
+
+                    }
+
+                } while (validMove == false);
+
+            }
+
+        } while (map.outputUpdatedMap(players) == false);
+        return true;
+
+    }
 }
