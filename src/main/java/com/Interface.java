@@ -146,10 +146,10 @@ public class Interface {
 
             }
 
+            System.out.println ("Map height and width (n): ");
+            n = k.nextInt();
+            
         }
-
-        System.out.println ("Map height and width (n): ");
-        n = k.nextInt();
 
         return n;
 

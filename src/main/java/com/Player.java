@@ -15,21 +15,13 @@ public class Player {
         
         this.html = new File ("map_name_" + playerNumber + ".html");
         this.css = new File ("map_name_" + playerNumber + ".css");
-        
-        if (this.html.exists()) {
-        
-            this.html.delete();
-        
-        }
-        
-        if (this.css.exists()) {
-        
-            this.css.delete();
-        
-        }
+
+        // Delete files in case they exist
+        this.html.delete();
+        this.css.delete();
         
     }
-    
+
     public File getHTML() {
     
         return html;
