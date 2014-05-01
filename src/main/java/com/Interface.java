@@ -34,72 +34,21 @@ public class Interface {
 
             for (int i = 0; i < players.length; i++) {
 
-                boolean validMove = false;
+                char move;
 
                 do {
 
                     System.out.print ("Awaiting Input from Player " + i + ": ");
 
-                    char move = k.next().toUpperCase().charAt(0);
+                    move = k.next().toUpperCase().charAt(0);
 
                     System.out.println();
 
-                    int row = players[i].getCurrentRow();
-                    int col = players[i].getCurrentCol();
-
-                    boolean validCharacter = true;
-
-                    switch (move) {
-
-                        case 'U':
-
-                            row--;
-                            break;
-
-                        case 'D':
-
-                            row++;
-                            break;
-
-                        case 'L':
-
-                            col--;
-                            break;
-
-                        case 'R':
-
-                            col++;
-                            break;
-
-                        default:
-
-                            System.out.println ("Invalid Move!  Please input one of these character options: U, D, L, R");
-                            validCharacter = false;
-                            break;
-
-                    }
-
-                    if (validCharacter == true) {
-
-                        validMove = map.checkInRange(row, col);
-
-                        if (validMove) {
-
-                            players[i].updatePosition (row, col);
-
-                        } else {
-
-                            System.out.println ("Invalid Move!  You tried to move outside map limit.  Please try again");
-
-                        }
-
-                    }
-
-                } while (validMove == false);
+                } while (!move(map, players[i], move));
 
             }
 
-        } while (map.outputUpdatedMap(players) == false);
+        } while (!map.outputUpdatedMap(players));
 
         System.out.println ("Game Finished!");
 
@@ -148,7 +97,7 @@ public class Interface {
 
             System.out.println ("Map height and width (n): ");
             n = k.nextInt();
-            
+
         }
 
         return n;
@@ -209,6 +158,56 @@ public class Interface {
             return true;
 
         }
+    }
+
+    public static boolean move (Map map, Player player, char choice) {
+
+        int row = player.getCurrentRow();
+        int col = player.getCurrentCol();
+
+        switch (choice) {
+
+            case 'U':
+
+                row--;
+                break;
+
+            case 'D':
+
+                row++;
+                break;
+
+            case 'L':
+
+                col--;
+                break;
+
+            case 'R':
+
+                col++;
+                break;
+
+            default:
+
+                System.out.println ("Invalid Move!  Please input one of these character options: U, D, L, R");
+                return false;
+
+        }
+
+        boolean validMove = map.checkInRange(row, col);
+
+        if (validMove) {
+
+            player.updatePosition (row, col);
+            return true;
+
+        } else {
+
+            System.out.println ("Invalid Move!  You tried to move outside map limit.  Please try again");
+            return false;
+
+        }
+
     }
 
 }
