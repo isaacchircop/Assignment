@@ -23,7 +23,7 @@ public class PlayerClassTest {
     public void testGetCSS() {
 
         Player player = new Player(0,0,0);
-        File cssFile = player.getHTML();
+        File cssFile = player.getCSS();
 
         assertTrue("Testing whether getCSS() returns a CSS File Type", cssFile.getPath().endsWith(".css"));
 
