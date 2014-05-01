@@ -50,12 +50,12 @@ public class InterfaceClassTest {
 
         Map map = new Map(5);
 
-        Player player = new Player (2,2,0);
+        Player player = new Player (0,0,0);
 
-        assertTrue("Checking if character u is declined - player moves outside range", Interface.move(map, player, 'u'));
-        assertTrue("Checking if character l is declined - player moves outside range", Interface.move(map, player, 'l'));
+        assertFalse("Checking if character u is declined - player moves outside range", Interface.move(map, player, 'u'));
+        assertFalse("Checking if character l is declined - player moves outside range", Interface.move(map, player, 'L'));
         assertTrue("Checking if character r is accepted", Interface.move(map, player, 'r'));
-        assertTrue("Checking if character d is accepted", Interface.move(map, player, 'd'));
+        assertTrue("Checking if character d is accepted", Interface.move(map, player, 'D'));
         assertFalse("Checking if incorrect character is declined", Interface.move(map, player, 't'));
 
 
