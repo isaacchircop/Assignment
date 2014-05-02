@@ -141,7 +141,6 @@ public class Game {
 
     }
 
-    // Methods to update CSS File
     public void rewriteFile (File cssFile, String appendString) {
 
         try {
@@ -238,7 +237,6 @@ public class Game {
         return cssCode + imageCode;
 
     }
-    // End of Methods to update CSS File
 
     // Tested
     public boolean validMove (Player player, char choice) {

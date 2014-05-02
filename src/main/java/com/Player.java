@@ -23,36 +23,42 @@ public class Player {
         
     }
 
+    // Tested
     public File getHTML() {
     
         return html;
     
     }
-    
+
+    // Tested
     public File getCSS() {
     
         return css;
     
     }
-    
+
+    // Tested
     public Position getCurrentPosition(){
 
         return currentPosition;
 
     }
 
+    // Tested
     public Position getInitialPosition() {
 
         return initialPosition;
 
     }
-    
+
+    // Tested
     public void updatePosition(Position newPosition) {
     
         currentPosition = newPosition;
     
     }
 
+    // Tested
     public void resetPosition() {
     
         currentPosition = initialPosition;

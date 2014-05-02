@@ -39,6 +39,7 @@ public class GameLauncher {
 
     }
 
+    // Tested
     public static boolean playerNumberCheck(int players) {
 
         return !(players < 2 || players > 8);
@@ -72,6 +73,7 @@ public class GameLauncher {
 
     }
 
+    // Tested
     public static boolean mapSizeCheck(int size, int players){
 
         if((players <= 4) && (size < 5 || size > 50)){
