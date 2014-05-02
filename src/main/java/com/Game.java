@@ -141,7 +141,29 @@ public class Game {
 
     }
 
+    // Methods to update CSS File
+    public void rewriteFile (File cssFile, String appendString) {
 
+        try {
+
+            String fileContents = getAllExceptLastLine(cssFile);
+
+            FileWriter fw = new FileWriter (cssFile);
+            BufferedWriter bw = new BufferedWriter (fw);
+
+            bw.write(fileContents);
+            bw.write(appendString);
+            bw.close();
+
+        }
+
+        catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
 
     public String getAllExceptLastLine (File file) {
 
@@ -189,29 +211,6 @@ public class Game {
 
     }
 
-    public void rewriteFile (File cssFile, String appendString) {
-
-        try {
-
-            String fileContents = getAllExceptLastLine(cssFile);
-
-            FileWriter fw = new FileWriter (cssFile);
-            BufferedWriter bw = new BufferedWriter (fw);
-
-            bw.write(fileContents);
-            bw.write(appendString);
-            bw.close();
-
-        }
-
-        catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
-
-    }
-
     public String getCSSCode (Player player) {
 
         Position currentPosition = player.getCurrentPosition();
@@ -239,7 +238,9 @@ public class Game {
         return cssCode + imageCode;
 
     }
+    // End of Methods to update CSS File
 
+    // Tested
     public boolean validMove (Player player, char choice) {
 
         Position currentPosition = player.getCurrentPosition();
@@ -267,6 +268,7 @@ public class Game {
 
     }
 
+    // Tested
     public Position getNewPosition(Player player, char choice) {
 
         Position currentPosition = player.getCurrentPosition();

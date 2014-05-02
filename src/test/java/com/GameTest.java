@@ -21,15 +21,77 @@ public class GameTest {
     }
 
     @Test
-    public void testValidMoveValidCharacter() {
+    public void testInvalidMoveValidCharacterU() {
 
-        Player player = new Player(new Position (0,0),0);
+        Position pos = new Position (0,0);
+        Player player = new Player(pos,0);
 
         char choice = 'u';
 
         Game game = new Game (2, 5);
 
-        game.validMove(player, choice);
+        assertFalse("Checking if old position is equal to new proposed position", game.getNewPosition(player,choice).isEqual(pos));
+        assertFalse("Checking if Up direction is declined", game.validMove(player, choice));
+
+    }
+
+    @Test
+    public void testValidMoveValidCharacterD() {
+
+        Position pos = new Position (0,0);
+        Player player = new Player(pos,0);
+
+        char choice = 'd';
+
+        Game game = new Game (2, 5);
+
+        assertFalse("Checking if old position is equal to new proposed position", game.getNewPosition(player,choice).isEqual(pos));
+        assertTrue("Checking if Down direction is accepted", game.validMove(player, choice));
+
+    }
+
+    @Test
+    public void testValidMoveInvalidCharacterL() {
+
+        Position pos = new Position (0,0);
+        Player player = new Player(pos,0);
+
+        char choice = 'L';
+
+        Game game = new Game (2, 5);
+
+        assertFalse("Checking if old position is equal to new proposed position", game.getNewPosition(player,choice).isEqual(pos));
+        assertFalse("Checking if Left direction is declined", game.validMove(player, choice));
+
+    }
+
+    @Test
+    public void testValidMoveValidCharacterR() {
+
+        Position pos = new Position (0,0);
+        Player player = new Player(pos,0);
+
+        char choice = 'R';
+
+        Game game = new Game (2, 5);
+
+        assertFalse("Checking if old position is equal to new proposed position", game.getNewPosition(player,choice).isEqual(pos));
+        assertTrue("Checking if Right direction is accepted", game.validMove(player, choice));
+
+    }
+
+    @Test
+    public void testInValidMoveInvalidCharacterT() {
+
+        Position pos = new Position (0,0);
+        Player player = new Player(pos,0);
+
+        char choice = 't';
+
+        Game game = new Game (2, 5);
+
+        assertTrue("Checking if old position is equal to new proposed position", game.getNewPosition(player,choice).isEqual(pos));
+        assertFalse("Checking if character t is declined", game.validMove(player, choice));
 
     }
 
