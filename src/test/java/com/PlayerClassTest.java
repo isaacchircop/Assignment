@@ -1,4 +1,4 @@
-package com;
+/*package com;
 
 import org.junit.*;
 import java.io.File;
@@ -79,4 +79,4 @@ public class PlayerClassTest {
 
     }
 
-}
+}*/

@@ -6,7 +6,8 @@ import java.util.*;
 public class Map {
     
     private Tile[][] map;
-    
+
+    // Tested
     public Map (int n) {
     
         map = new Tile [n][n];
@@ -31,181 +32,98 @@ public class Map {
         map[row][col] = Tile.Treasure;
 
     }
-        
-    private String getBodyCode() {
-        
+
+    // Tested
+    public String getAsHTMLTable() {
+
         int n = map.length;
-    
-        String body = "<body><table border=\"1\" bordercolor=\"#ffffff\" bgcolor=\"#aaaaaa\">";
-        
+
+        String htmlTable = "<table border=\"1\" bordercolor=\"#ffffff\" bgcolor=\"#aaaaaa\">\n";
+
         for (int i = 0; i < n; i++) {
-            
-            body = body + "<tr>";
-        
+
+            htmlTable = htmlTable + "<tr>\n";
+
             for (int j = 0; j < n; j++) {
-            
-                body = body + "<td id = \"cell" + i + j + "\" width = \"50\" height = \"50\"></td>";
-            
-            }
-            
-            body = body + "</tr>";
-        
-        }
-        
-        body = body + "</table></body>";
-        
-        return body;
-    
-    }
-    
-    public void outputInitialMap (Player[] players) {
-    
-        FileWriter fw;
-        BufferedWriter bw;
-        
-        String body = getBodyCode();
-        
-        for (int i = 0; i < players.length; i++) {
-            
-            String head = "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"map_name_" + i + ".css\"></head>";
-            String html = "<html>" + head + body + "</html>";
-        
-            try {
-            
-                fw = new FileWriter(players[i].getHTML());
-                bw = new BufferedWriter (fw);
-                
-                bw.write(html);
-                bw.close();
-                
-            }
-        
-            catch (IOException e) {
-                
-                e.printStackTrace();
-            
-            }
-            
-        }
-    
-    }
-    
-    public boolean outputUpdatedMap (Player[] players) {
-        
-        boolean treasureFound = false;
-        
-        FileWriter fw;
-        BufferedWriter bw;
-    
-        for (int i = 0; i < players.length; i++) {
-            
-            int row = players[i].getCurrentRow();
-            int col = players[i].getCurrentCol();
-            
-            String cellID = "cell" + row + col;
-            String currentCell = cellID;
-            
-            String colour = "";
-            String currentColour = colour;
-            
-            switch (map[row][col]) {
-            
-                case Grass:
-                    currentColour = colour = "green";
-                    break;
-                    
-                case Water:
-                    colour = "blue";
-                    currentCell = "cell" + players[i].getInitRow() + players[i].getInitCol();
-                    players[i].resetPosition();
-                    currentColour = "green";
-                    break;
-                    
-                default:
-                    currentColour = colour = "yellow";
-                    treasureFound = true;
-                    break;
-                 
-            }
-            
-            String cssCode = "td#" + cellID + "{background: " + colour + ";}\n";
-            
-            String imageCode = "td#" + currentCell + "{background: " + currentColour + " url(\"pin.png\") no-repeat center center; background-size:50%}\n";
-            
-            try {
-                
-                String file = "";
-                
-                // Load file contents except last line into variable called file
-                
-                if (players[i].getCSS().length() > 0) {
-                
-                    FileReader fr = new FileReader(players[i].getCSS());
-                    BufferedReader br = new BufferedReader(fr);
-                    
-                    String line = br.readLine();
-                    
-                    String lastline = line;
-                    
-                    while ((line = br.readLine()) != null) {
 
-                        file = file + lastline;
-                        lastline = line;
+                htmlTable = htmlTable + "<td id = \"cell" + i + j + "\" width = \"50\" height = \"50\"></td>\n";
 
-                    }
-                    
-                    br.close();
-                
-                }
-                
-                fw = new FileWriter (players[i].getCSS());
-                bw = new BufferedWriter (fw);
-            
-                bw.write(file);
-                bw.write(cssCode);
-                bw.write(imageCode);
-                bw.close();
-                
             }
-            
-            catch (IOException e) {
-            
-                e.printStackTrace();
-            
-            }
-        
+
+            htmlTable = htmlTable + "</tr>\n";
+
         }
-        
-        return treasureFound;
-    
+
+        htmlTable = htmlTable + "</table>";
+
+        return htmlTable;
+
     }
     
+    public String getColour (Position position) {
+
+        int row = position.getRow();
+        int col = position.getCol();
+
+        switch (map[row][col]) {
+
+            case Grass:
+                return "green";
+
+            case Water:
+                return "blue";
+
+            default:
+                return "yellow";
+
+        }
+
+    }
+
+    // Tested
     public int getLength() {
-    
+
         return map.length;
-    
+
     }
-    
-    public Tile getTile(int row, int col) {
-    
-        return map[row][col];
-    
-    }
-    
-    public boolean checkInRange (int row, int col) {
+
+    // Tested
+    public boolean checkInRange (Position position) {
     
         int length = map.length;
+
+        int row = position.getRow();
+        int col = position.getCol();
         
-        if (row < length && col < length && row >= 0 && col >= 0) {
-        
-            return true;
-        
-        } else {
-        
-            return false;
-        
-        }
+        return (row < length && col < length && row >= 0 && col >= 0);
     
     }
-    
+
+    public boolean isGrass(Position position) {
+
+        int row = position.getRow();
+        int col = position.getCol();
+
+        return (map[row][col] == Tile.Grass);
+
+    }
+
+    public boolean isWater(Position position) {
+
+        int row = position.getRow();
+        int col = position.getCol();
+
+        return (map[row][col] == Tile.Water);
+
+    }
+
+    public boolean isTreasure(Position position) {
+
+        int row = position.getRow();
+        int col = position.getCol();
+
+        return (map[row][col] == Tile.Treasure);
+
+    }
+
 }

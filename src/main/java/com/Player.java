@@ -4,14 +4,15 @@ import java.io.*;
 
 public class Player {
     
-    private int currRow, currCol, initRow, initCol;
+    private Position currentPosition;
+    private Position initialPosition;
     
     private File html, css;
     
-    public Player (int initRow, int initCol, int playerNumber) {
+    public Player (Position position, int playerNumber) {
     
-        this.currRow = this.initRow = initRow;
-        this.currCol = this.initCol = initCol;
+        initialPosition = position;
+        currentPosition = position;
         
         this.html = new File ("map_name_" + playerNumber + ".html");
         this.css = new File ("map_name_" + playerNumber + ".css");
@@ -34,41 +35,27 @@ public class Player {
     
     }
     
-    public int getCurrentRow() {
-    
-        return currRow;
-    
+    public Position getCurrentPosition(){
+
+        return currentPosition;
+
+    }
+
+    public Position getInitialPosition() {
+
+        return initialPosition;
+
     }
     
-    public int getCurrentCol() {
+    public void updatePosition(Position newPosition) {
     
-        return currCol;
-    
-    }
-    
-    public int getInitRow() {
-    
-        return initRow;
-    
-    }
-    
-    public int getInitCol() {
-    
-        return initCol;
-    
-    }
-    
-    public void updatePosition(int row, int col) {
-    
-        currRow = row;
-        currCol = col;
+        currentPosition = newPosition;
     
     }
 
     public void resetPosition() {
     
-        currRow = initRow;
-        currCol = initCol;
+        currentPosition = initialPosition;
     
     }
     
