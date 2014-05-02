@@ -40,7 +40,7 @@ public class Interface {
 
                     System.out.print ("Awaiting Input from Player " + i + ": ");
 
-                    move = k.next().toUpperCase().charAt(0);
+                    move = k.next().charAt(0);
 
                     System.out.println();
 
@@ -165,6 +165,8 @@ public class Interface {
         int row = player.getCurrentRow();
         int col = player.getCurrentCol();
 
+        choice = Character.toUpperCase(choice);
+
         switch (choice) {
 
             case 'U':
@@ -194,9 +196,7 @@ public class Interface {
 
         }
 
-        boolean validMove = map.checkInRange(row, col);
-
-        if (validMove) {
+        if (map.checkInRange(row, col)) {
 
             player.updatePosition (row, col);
             return true;
