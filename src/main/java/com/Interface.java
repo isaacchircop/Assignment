@@ -54,7 +54,6 @@ public class Interface {
 
     }
 
-
     public static int getPlayers() {
 
         System.out.print ("Number of players: ");
