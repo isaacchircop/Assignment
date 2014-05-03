@@ -11,9 +11,11 @@ public class GameLauncher {
         int numPlayers = getPlayers();
         int size = getMapSize(numPlayers);
 
+        Difficulty diff = getDifficulty();
+
         // Create a new game for the specified inputs
 
-        Game game = new Game (numPlayers, size);
+        Game game = new Game (numPlayers, size, diff);
 
         game.start();
 
@@ -83,6 +85,49 @@ public class GameLauncher {
         } else {
 
             return !((players >= 5) && (size < 8 || size > 50));
+
+        }
+
+    }
+
+    public static Difficulty getDifficulty() {
+
+        System.out.println ("Please select difficulty level: [S]afe (10% water tiles) or [H]azardous (25%-35% water tiles)");
+
+        Scanner k = new Scanner (System.in);
+
+        char choice = Character.toUpperCase(k.next().charAt(0));
+
+        while (!validChoice(choice)) {
+
+            System.out.println ("\nInvalid Input!  Minimum: 2 Players, Maximum: 8 Players\n");
+
+            System.out.print ("Difficult Level: [S]/[H]");
+            choice = Character.toUpperCase(k.next().charAt(0));
+
+        }
+
+        if (choice == 'S') {
+
+            return Difficulty.Safe;
+
+        } else {
+
+            return Difficulty.Hazardous;
+
+        }
+
+    }
+
+    public static boolean validChoice(char choice) {
+
+        if ((choice == 'S') || (choice == 'H')) {
+
+            return true;
+
+        } else {
+
+            return false;
 
         }
 

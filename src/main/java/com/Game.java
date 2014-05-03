@@ -8,21 +8,21 @@ public class Game {
     private Map map;
     private Player[] players;
 
-    public Game (int numOfPlayers, int mapSize) {
+    public Game (int numOfPlayers, int mapSize, Difficulty difficulty) {
 
-        map = new Map(mapSize);
+        map = new Map(mapSize, difficulty);
         players = createPlayers(numOfPlayers);
-
-        // Output html and css files to display map to user
-
-        outputMap();
-        updateMapVisibility();
 
     }
 
     public void start() {
 
         int rndCnt = 0;
+
+        // Output html and css files to display map to user
+
+        outputMap();
+        updateMapVisibility();
 
         do {
 

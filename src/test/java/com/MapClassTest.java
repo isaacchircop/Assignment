@@ -13,7 +13,7 @@ public class MapClassTest {
     @Test
     public void testValidMapRange() {
 
-        Map m = new Map(5);
+        Map m = new Map(5, Difficulty.Safe);
         Position pos = new Position (4,2);
 
         assertTrue("Checking if tile (4,2) exists in a map of size 5", m.checkInRange(pos));
@@ -23,7 +23,7 @@ public class MapClassTest {
     @Test
     public void testInvalidMapRange() {
 
-        Map m = new Map(5);
+        Map m = new Map(5, Difficulty.Safe);
         Position pos = new Position (6,2);
 
         assertFalse("Checking if tile (6,2) exists in a map of size 5", m.checkInRange(pos));
@@ -34,7 +34,7 @@ public class MapClassTest {
     public void testCorrectMapCreation() {
 
         int size = 5;
-        Map map = new Map(5);
+        Map map = new Map(5, Difficulty.Hazardous);
 
         assertEquals("Checking if map of correct size is created", map.getLength(), size);
 
@@ -43,7 +43,7 @@ public class MapClassTest {
     @Test
     public void testGetLength() {
 
-        Map map = new Map(5);
+        Map map = new Map(5, Difficulty.Hazardous);
 
         assertEquals("Testing if map length returns correct value", map.getLength(), 5);
 
@@ -52,7 +52,7 @@ public class MapClassTest {
     @Test
     public void testGetHTMLCode() {
 
-        Map map = new Map(5);
+        Map map = new Map(5, Difficulty.Safe);
 
         String html = map.getAsHTMLTable();
 
