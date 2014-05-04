@@ -8,9 +8,9 @@ public class Game {
     private Map map;
     private Player[] players;
 
-    public Game (int numOfPlayers, int mapSize, Difficulty difficulty) {
+    public Game (int numOfPlayers, int mapSize, char difficultyChoice) {
 
-        map = new Map(mapSize, difficulty);
+        map = MapCreator.createMap(mapSize, difficultyChoice);
         players = createPlayers(numOfPlayers);
 
     }

@@ -5,15 +5,10 @@ import java.util.*;
 public class Map {
 
     private Tile[][] map;
-    private int mapSize;
 
-    // Tested
-    public Map (int n, Difficulty difficulty) {
-    
-        map = new Tile [n][n];
-        mapSize = n;
+    public Map(Tile[][] mapArray){
 
-        fillMap (difficulty);
+        map = mapArray;
 
     }
 
@@ -107,120 +102,6 @@ public class Map {
         int col = position.getCol();
 
         return (map[row][col] == Tile.Treasure);
-
-    }
-
-    private int getNumberOfWaterTiles(Difficulty difficulty) {
-
-        int mapArea = mapSize * mapSize;
-
-        switch (difficulty) {
-
-            case Safe: {
-
-                final double percentage = 0.1;
-
-                return (int) (percentage * mapArea);
-
-            }
-
-            case Hazardous: {
-
-                double percentage = (Math.random()*11 + 25) / 100;
-
-                return (int) (percentage * mapArea);
-
-            }
-
-            default: {
-
-                return -1;
-
-            }
-
-        }
-
-    }
-
-    private Position getRandomPosition() {
-
-        Random random = new Random();
-
-        int mapSize = map.length;
-
-        int col = random.nextInt(mapSize);
-        int row = random.nextInt(mapSize);
-
-        return new Position (row, col);
-
-    }
-
-    private Position[] getWaterPositions (int numOfTiles) {
-
-        Position[] waterTiles = new Position[numOfTiles];
-
-        for (int i = 0; i < numOfTiles; i++) {
-
-            boolean validPosition;
-
-            do {
-
-                waterTiles[i] = getRandomPosition();
-                validPosition = true;
-
-                for (int j = 0; j < i; j++) {
-
-                    if (waterTiles[i].isEqual(waterTiles[j])) {
-
-                        validPosition = false;
-                        break;
-
-                    }
-
-                }
-
-            } while (!validPosition);
-
-        }
-
-        return waterTiles;
-
-    }
-
-    private void fillWithWater(Position[] waterTiles) {
-
-        for (int i = 0; i < waterTiles.length; i++) {
-
-            int row = waterTiles[i].getRow();
-            int col = waterTiles[i].getCol();
-
-            map[row][col] = Tile.Water;
-
-        }
-
-    }
-
-    private void fillMap(Difficulty difficulty) {
-
-        // Fill all map tiles as grass
-        for (int i = 0; i < mapSize; i++) {
-            for (int j = 0; j < mapSize; j++) {
-                map[i][j] = Tile.Grass;
-            }
-        }
-
-        // Get Number of Tiles that are to be filled with water
-        int numOfWaterTiles = getNumberOfWaterTiles(difficulty);
-
-        // Choose which positions are to be filled with water
-        Position[] waterTiles = getWaterPositions(numOfWaterTiles);
-
-        // Fill positions with water
-        fillWithWater(waterTiles);
-
-        // Choose a random tile to be treasure tile
-        Position treasureLocation = getRandomPosition();
-        map[treasureLocation.getRow()][treasureLocation.getCol()] = Tile.Treasure;
 
     }
 

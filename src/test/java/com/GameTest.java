@@ -1,4 +1,4 @@
-package com;
+/*package com;
 
 import com.Game;
 import org.junit.*;
@@ -110,6 +110,6 @@ public class GameTest {
         assertFalse("Checking if incorrect character is declined", Game.move(map, player, 't'));
 
 
-    }*/
+    }
 
-}
+}*/

@@ -11,7 +11,7 @@ public class GameLauncher {
         int numPlayers = getPlayers();
         int size = getMapSize(numPlayers);
 
-        Difficulty diff = getDifficulty();
+        char diff = getDifficulty();
 
         // Create a new game for the specified inputs
 
@@ -90,7 +90,7 @@ public class GameLauncher {
 
     }
 
-    public static Difficulty getDifficulty() {
+    public static char getDifficulty() {
 
         System.out.println ("Please select difficulty level: [S]afe (10% water tiles) or [H]azardous (25%-35% water tiles)");
 
@@ -107,15 +107,7 @@ public class GameLauncher {
 
         }
 
-        if (choice == 'S') {
-
-            return Difficulty.Safe;
-
-        } else {
-
-            return Difficulty.Hazardous;
-
-        }
+        return choice;
 
     }
 

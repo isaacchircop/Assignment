@@ -1,4 +1,4 @@
-package com;
+/*package com;
 
 import com.Map;
 import com.Position;
@@ -60,4 +60,4 @@ public class MapClassTest {
 
     }
 
-}
+}*/
