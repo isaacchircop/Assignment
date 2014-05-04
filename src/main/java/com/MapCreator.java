@@ -15,7 +15,7 @@ public abstract class MapCreator {
         MapCreator creator = getCreator(difficultyChoice);
         creator.fillMap();
 
-        return new Map(map);
+        return Map.createMap(map);
 
     }
 

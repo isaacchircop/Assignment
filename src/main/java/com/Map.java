@@ -4,11 +4,25 @@ import java.util.*;
 
 public class Map {
 
-    private Tile[][] map;
+    private static Map instance;
 
-    public Map(Tile[][] mapArray){
+    private static Tile[][] map;
+
+    private Map(Tile[][] mapArray){
 
         map = mapArray;
+
+    }
+
+    public static Map createMap(Tile[][] mapArray) {
+
+        if (instance == null) {
+
+            instance = new Map(mapArray);
+
+        }
+
+        return instance;
 
     }
 
