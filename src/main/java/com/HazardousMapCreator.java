@@ -1,6 +1,6 @@
 package com;
 
-public class HazardousMapCreator extends MapCreator {
+public class HazardousMapCreator extends MapGenerator {
 
     @Override
     protected double getWaterTilePercentage() {

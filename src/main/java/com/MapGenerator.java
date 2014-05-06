@@ -2,37 +2,19 @@ package com;
 
 import java.util.Random;
 
-public abstract class MapCreator {
+public abstract class MapGenerator {
 
-    private static Tile[][] map;
-    private static int mapSize;
+    private Tile[][] map;
+    private int mapSize;
 
-    public static Map createMap (int size, char difficultyChoice) {
+    public Map createMap (int size) {
 
         map = new Tile[size][size];
         mapSize = size;
 
-        MapCreator creator = getCreator(difficultyChoice);
-        creator.fillMap();
+        fillMap();
 
         return Map.createMap(map);
-
-    }
-
-    private static MapCreator getCreator (char difficultyChoice) {
-
-        switch (difficultyChoice) {
-
-            case 'S':
-                return new SafeMapCreator();
-
-            case 'H':
-                return new HazardousMapCreator();
-
-            default:
-                return new HazardousMapCreator();
-
-        }
 
     }
 

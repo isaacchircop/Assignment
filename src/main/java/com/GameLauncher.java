@@ -6,18 +6,22 @@ public class GameLauncher {
 
     public static void main (String args[]) {
 
+        System.out.println ("Getting map generation parameters:");
+
         // Get number of players and map size
+        int numOfPlayers = getPlayers();
+        int numOfTeams = getTeams(numOfPlayers);
+        int mapSize = getMapSize(numOfPlayers);
+        char difficulty = getDifficulty();
 
-        int numPlayers = getPlayers();
-        int size = getMapSize(numPlayers);
+        // Create a new game generator
+        GameGenerator generator = new GameGenerator(numOfPlayers, numOfTeams, mapSize, difficulty);
 
-        char diff = getDifficulty();
+        // Create a new game
+        Game game = generator.createGame();
 
-        // Create a new game for the specified inputs
-
-        Game game = new Game (numPlayers, size, diff);
-
-        game.start();
+        // Start playing the game
+        game.startGame();
 
     }
 
@@ -32,7 +36,7 @@ public class GameLauncher {
 
             System.out.println ("\nInvalid Input!  Minimum: 2 Players, Maximum: 8 Players\n");
 
-            System.out.print ("Number of players: ");
+            System.out.print("Number of players: ");
             players = k.nextInt();
 
         }
@@ -40,8 +44,6 @@ public class GameLauncher {
         return players;
 
     }
-
-    // Tested
     public static boolean playerNumberCheck(int players) {
 
         return !(players < 2 || players > 8);
@@ -74,8 +76,6 @@ public class GameLauncher {
         return n;
 
     }
-
-    // Tested
     public static boolean mapSizeCheck(int size, int players){
 
         if((players <= 4) && (size < 5 || size > 50)){
@@ -92,17 +92,16 @@ public class GameLauncher {
 
     public static char getDifficulty() {
 
-        System.out.println ("Please select difficulty level: [S]afe (10% water tiles) or [H]azardous (25%-35% water tiles)");
-
+        System.out.print ("Difficulty level (S/H):  ");
         Scanner k = new Scanner (System.in);
 
         char choice = Character.toUpperCase(k.next().charAt(0));
 
         while (!validChoice(choice)) {
 
-            System.out.println ("\nInvalid Input!  Minimum: 2 Players, Maximum: 8 Players\n");
+            System.out.println ("\nInvalid Input!  Please input S/H\n");
 
-            System.out.print ("Difficult Level: [S]/[H]");
+            System.out.print("Difficulty Level (S/H):");
             choice = Character.toUpperCase(k.next().charAt(0));
 
         }
@@ -110,7 +109,6 @@ public class GameLauncher {
         return choice;
 
     }
-
     public static boolean validChoice(char choice) {
 
         if ((choice == 'S') || (choice == 'H')) {
@@ -124,5 +122,28 @@ public class GameLauncher {
         }
 
     }
+
+    public static int getTeams(int players) {
+
+        System.out.print("Number of Teams: ");
+
+        Scanner k = new Scanner (System.in);
+
+        int teams = k.nextInt();
+
+        while (teams > players) {
+
+            System.out.println ("\nInvalid input!  Team number must be smaller than number of players.\n");
+
+            System.out.print ("Number of Teams: ");
+
+            teams = k.nextInt();
+
+        }
+
+        return teams;
+
+    }
+
 
 }

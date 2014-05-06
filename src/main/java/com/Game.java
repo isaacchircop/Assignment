@@ -8,30 +8,32 @@ public class Game {
     private Map map;
     private Player[] players;
 
-    public Game (int numOfPlayers, int mapSize, char difficultyChoice) {
+    public Game (Player[] players, Map map) {
 
-        map = MapCreator.createMap(mapSize, difficultyChoice);
-        players = createPlayers(numOfPlayers);
+        this.players = players;
+        this.map = map;
 
     }
 
-    public void start() {
+    public void startGame() {
+
+        // Instantiate Player Positions
+        instantiatePositions();
 
         int rndCnt = 0;
 
         // Output html and css files to display map to user
 
         outputMap();
-        updateMapVisibility();
 
-        do {
+        while (!updateAndCheckPositions()) {
 
             rndCnt++;
 
-            System.out.println("\n===================================================");
-            System.out.println ("Round " + rndCnt + ": Move (U)p (D)own (L)eft or (R)ight\n");
+            System.out.println("\n================================================================");
+            System.out.println("Round " + rndCnt + ": Move (U)p (D)own (L)eft or (R)ight\n");
 
-            Scanner k = new Scanner (System.in);
+            Scanner k = new Scanner(System.in);
 
             for (int i = 0; i < players.length; i++) {
 
@@ -39,7 +41,7 @@ public class Game {
 
                 do {
 
-                    System.out.print ("Awaiting Input from Player " + i + ": ");
+                    System.out.print("Awaiting Input from Player " + i + ": ");
 
                     move = k.next().charAt(0);
 
@@ -49,29 +51,19 @@ public class Game {
 
             }
 
-            updateMapVisibility();
-
-            resetPositionsIfWater();
-
-        } while (!treasureFound());
+        }
 
         System.out.println ("Game Finished!");
 
     }
 
-    public Player[] createPlayers (int players) {
+    private void instantiatePositions() {
 
-        Player[] playersArray = new Player[players];
+        for (int i = 0; i < players.length; i++) {
 
-        for (int i = 0; i < players; i++) {
-
-            Position initialPosition = getInitialPosition();
-
-            playersArray[i] = new Player(initialPosition, i);
+            players[i].setInitialPosition(getInitialPosition());
 
         }
-
-        return playersArray;
 
     }
 
@@ -79,166 +71,21 @@ public class Game {
 
         Random rand = new Random();
 
-        Position position;
-
-        int mapSize = map.getLength();
+        Position initialPosition;
 
         do {
 
-            int row = rand.nextInt(mapSize);
-            int col = rand.nextInt(mapSize);
+            int row = rand.nextInt(map.getLength());
+            int col = rand.nextInt(map.getLength());
 
-            position = new Position(row,col);
+            initialPosition = new Position(row,col);
 
-        } while (!map.isGrass(position));
+        } while (!map.isGrass(initialPosition));
 
-        return position;
-
-    }
-
-    private void outputMap () {
-
-        FileWriter fw;
-        BufferedWriter bw;
-
-        String mapTable = map.getAsHTMLTable();
-        String body = "<body>" + mapTable + "</body>";
-
-        for (int i = 0; i < players.length; i++) {
-
-            String head = "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"map_name_" + i + ".css\"></head>";
-            String html = "<html>" + head + body + "</html>";
-
-            try {
-
-                fw = new FileWriter(players[i].getHTML());
-                bw = new BufferedWriter (fw);
-
-                bw.write(html);
-                bw.close();
-
-            }
-
-            catch (IOException e) {
-
-                e.printStackTrace();
-
-            }
-
-        }
+        return initialPosition;
 
     }
 
-    private void updateMapVisibility () {
-
-        for (int i = 0; i < players.length; i++) {
-
-            String codeToAppend = getCSSCode(players[i]);
-
-            rewriteFile(players[i].getCSS(), codeToAppend);
-
-        }
-
-    }
-
-    public void rewriteFile (File cssFile, String appendString) {
-
-        try {
-
-            String fileContents = getAllExceptLastLine(cssFile);
-
-            FileWriter fw = new FileWriter (cssFile);
-            BufferedWriter bw = new BufferedWriter (fw);
-
-            bw.write(fileContents);
-            bw.write(appendString);
-            bw.close();
-
-        }
-
-        catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
-
-    }
-
-    public String getAllExceptLastLine (File file) {
-
-        String contents = "";
-
-        // Load file contents except last line into variable called file
-
-        if (file.length() > 0) {
-
-            try {
-
-                FileReader fr = new FileReader(file);
-                BufferedReader br = new BufferedReader(fr);
-
-                String line = br.readLine();
-
-                String lastline = line;
-
-                while ((line = br.readLine()) != null) {
-
-                    contents = contents + lastline;
-                    lastline = line;
-
-                }
-
-                br.close();
-
-            }
-
-            catch (FileNotFoundException e) {
-
-                e.printStackTrace();
-
-            }
-
-            catch (IOException e) {
-
-                e.printStackTrace();
-
-            }
-
-        }
-
-        return contents;
-
-    }
-
-    public String getCSSCode (Player player) {
-
-        Position currentPosition = player.getCurrentPosition();
-
-        String cellID = currentPosition.getID();
-
-        String currentTileColour = map.getColour(currentPosition);
-
-        String cssCode = "td#" + cellID + "{background: " + currentTileColour + ";}\n";
-
-        String imageCode;
-
-        if (!currentTileColour.equals("blue")) {
-
-            imageCode = "td#" + cellID + "{background: " + currentTileColour + " url(\"pin.png\") no-repeat center center; background-size:50%}\n";
-
-        } else {
-
-            Position initialPosition = player.getInitialPosition();
-            cellID = initialPosition.getID();
-            imageCode = "td#" + cellID + "{background: green url(\"pin.png\") no-repeat center center; background-size:50%}\n";
-
-        }
-
-        return cssCode + imageCode;
-
-    }
-
-    // Tested
     public boolean validMove (Player player, char choice) {
 
         Position currentPosition = player.getCurrentPosition();
@@ -260,17 +107,16 @@ public class Game {
 
         } else {
 
+            System.out.println ("Invalid Character!  Please try again");
             return false;
 
         }
 
     }
 
-    // Tested
     public Position getNewPosition(Player player, char choice) {
 
         Position currentPosition = player.getCurrentPosition();
-
         Position newPosition = new Position (currentPosition.getRow(), currentPosition.getCol());
 
         choice = Character.toUpperCase(choice);
@@ -306,29 +152,75 @@ public class Game {
 
     }
 
-    public boolean treasureFound() {
+    public boolean updateAndCheckPositions() {
+
+        boolean treasureFound = false;
+
+        // Change team file
 
         for (int i = 0; i < players.length; i++) {
 
-            if (map.isTreasure(players[i].getCurrentPosition())) {
+            Position currentPosition = players[i].getCurrentPosition();
 
-                return true;
+            switch (map.getTile(currentPosition)) {
+
+                case Grass:
+
+                    players[i].setTileColour("green");
+                    break;
+
+                case Water:
+
+                    players[i].setTileColour("blue");
+                    break;
+
+
+                case Treasure:
+
+                    players[i].setTileColour("yellow");
+                    treasureFound = true;
+                    break;
 
             }
 
         }
 
-        return false;
+        for (int i = 0; i < players.length; i++) {
+
+            players[i].updateMapDisplay();
+
+        }
+
+        return treasureFound;
 
     }
 
-    public void resetPositionsIfWater() {
+    private void outputMap () {
+
+        FileWriter fw;
+        BufferedWriter bw;
+
+        String mapTable = map.getAsHTMLTable();
+        String body = "<body>" + mapTable + "</body>";
 
         for (int i = 0; i < players.length; i++) {
 
-            if (map.isWater(players[i].getCurrentPosition())) {
+            String head = "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"map_name_" + i + ".css\"></head>";
+            String html = "<html>" + head + body + "</html>";
 
-                players[i].resetPosition();
+            try {
+
+                fw = new FileWriter(players[i].getHTML());
+                bw = new BufferedWriter (fw);
+
+                bw.write(html);
+                bw.close();
+
+            }
+
+            catch (IOException e) {
+
+                e.printStackTrace();
 
             }
 

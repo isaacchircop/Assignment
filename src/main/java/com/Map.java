@@ -119,4 +119,13 @@ public class Map {
 
     }
 
+    public Tile getTile(Position position) {
+
+        int row = position.getRow();
+        int col = position.getCol();
+
+        return map[row][col];
+
+    }
+
 }

@@ -4,20 +4,21 @@ import java.io.*;
 
 public class Player {
     
-    private Position currentPosition;
-    private Position initialPosition;
-    
+    private Position initialPosition, currentPosition;
+    private ConcreteTeam team;
     private File html, css;
+    private boolean treasureFound;
     
-    public Player (Position position, int playerNumber) {
-    
-        initialPosition = position;
-        currentPosition = position;
-        
+    public Player (int playerNumber, ConcreteTeam team) {
+
+        treasureFound = false;
+
+        // Setting team number
+        this.team = team;
+
+        // Creating new map files
         this.html = new File ("map_name_" + playerNumber + ".html");
         this.css = new File ("map_name_" + playerNumber + ".css");
-
-        // Delete files in case they exist
         this.html.delete();
         this.css.delete();
         
@@ -58,11 +59,62 @@ public class Player {
     
     }
 
-    // Tested
-    public void resetPosition() {
-    
-        currentPosition = initialPosition;
-    
+    public void setInitialPosition(Position initialPosition) {
+
+        this.currentPosition = this.initialPosition = initialPosition;
+
     }
-    
+
+    public void setTileColour(String colour) {
+
+        team.uncoverTile(currentPosition, colour);
+
+        if (colour.equals("blue")) {
+
+            currentPosition = initialPosition;
+
+        } else if (colour.equals("yellow")) {
+
+            treasureFound = true;
+
+        }
+
+    }
+
+    public void updateMapDisplay() {
+
+        String colour;
+
+        if (treasureFound == true) {
+
+            colour = "yellow";
+
+        } else {
+
+            colour = "green";
+
+        }
+
+        String cellID = currentPosition.getID();
+        String appendString = "td#" + cellID + "{background: " + colour + " url(\"pin.png\") no-repeat center center; background-size:50%}\n";
+
+        try {
+
+            FileWriter fw = new FileWriter (css);
+            BufferedWriter bw = new BufferedWriter (fw);
+
+            bw.write(team.getVisitedTilesCode());
+            bw.write(appendString);
+            bw.close();
+
+        }
+
+        catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
 }
