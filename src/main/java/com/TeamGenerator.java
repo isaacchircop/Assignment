@@ -41,9 +41,7 @@ public class TeamGenerator {
 
             int randomIndex = rand.nextInt(numOfPlayers - i);
 
-            System.out.println ("Player: " + playerNumbers[randomIndex] + " Index: " + randomIndex);
-
-            players[randomIndex] = new Player (playerNumbers[randomIndex], teamsPool[nextTeam%numOfTeams]);
+            players[nextTeam] = new Player (playerNumbers[randomIndex], teamsPool[nextTeam%numOfTeams]);
 
             nextTeam++;
 

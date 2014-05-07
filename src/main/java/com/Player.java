@@ -8,10 +8,13 @@ public class Player {
     private ConcreteTeam team;
     private File html, css;
     private boolean treasureFound;
+    public int playerNumber;
     
     public Player (int playerNumber, ConcreteTeam team) {
 
         treasureFound = false;
+
+        this.playerNumber = playerNumber;
 
         // Setting team number
         this.team = team;
