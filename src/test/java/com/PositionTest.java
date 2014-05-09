@@ -1,7 +1,5 @@
 package com;
 
-import com.Map;
-import com.Position;
 import org.junit.*;
 import static org.junit.Assert.*;
 

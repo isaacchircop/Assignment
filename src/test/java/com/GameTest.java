@@ -1,5 +1,7 @@
 package com;
 
+import org.junit.Test;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Daniel
@@ -7,20 +9,23 @@ package com;
  * Time: 23:04
  * To change this template use File | Settings | File Templates.
  */
+import org.junit.*;
+import static org.junit.Assert.*;
 public class GameTest {
-    public void testStartGame() throws Exception {
+    @Test
+    public void testStartGame(){
 
     }
-
-    public void testValidMove() throws Exception {
-
-    }
-
-    public void testGetNewPosition() throws Exception {
+    @Test
+    public void testValidMove(){
 
     }
+    @Test
+    public void testGetNewPosition(){
 
-    public void testUpdateAndCheckPositions() throws Exception {
+    }
+    @Test
+    public void testUpdateAndCheckPositions(){
 
     }
 }

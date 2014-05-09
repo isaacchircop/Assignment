@@ -7,8 +7,15 @@ package com;
  * Time: 23:36
  * To change this template use File | Settings | File Templates.
  */
-public class SafeMapCreatorTest {
-    public void testGetWaterTilePercentage() throws Exception {
+import org.junit.*;
+import static org.junit.Assert.*;
 
+public class SafeMapCreatorTest {
+    @Test
+    public void testGetWaterTilePercentage(){
+
+        SafeMapCreator sm1 = new SafeMapCreator();
+
+        assertEquals("Testing whether 0.1 is the actual returned percentage",0.1,sm1.getWaterTilePercentage(),1);
     }
 }
