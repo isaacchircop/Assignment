@@ -1,29 +1,42 @@
 package com;
 
-import com.GameLauncher;
-import org.junit.*;
-import static org.junit.Assert.*;
-
+/**
+ * Created with IntelliJ IDEA.
+ * User: Daniel
+ * Date: 09/05/14
+ * Time: 13:48
+ * To change this template use File | Settings | File Templates.
+ */
 public class GameLauncherTest {
-
-    public GameLauncherTest() {
-    }
-
-    @Test
-    public void testingPlayerNumbers() {
-
-        assertTrue("Checking validity 7 players", GameLauncher.playerNumberCheck(7));
-        assertFalse("Checking validity of 10 players", GameLauncher.playerNumberCheck(10));
+    public void testMain() throws Exception {
 
     }
 
-    @Test
-    public void testValidMapSize() {
-
-        assertTrue("Checking validity of map size of 10 for 4 players", GameLauncher.mapSizeCheck(10, 6));
-        assertFalse("Checking whether a map size of 5 is valid with 6 players", GameLauncher.mapSizeCheck(5, 6));
-        assertFalse("Checking whether a map size of 2 is invalid with 2 players", GameLauncher.mapSizeCheck(2, 2));
+    public void testGetPlayers() throws Exception {
 
     }
 
+    public void testPlayerNumberCheck() throws Exception {
+
+    }
+
+    public void testGetMapSize() throws Exception {
+
+    }
+
+    public void testMapSizeCheck() throws Exception {
+
+    }
+
+    public void testGetDifficulty() throws Exception {
+
+    }
+
+    public void testValidChoice() throws Exception {
+
+    }
+
+    public void testGetTeams() throws Exception {
+
+    }
 }
