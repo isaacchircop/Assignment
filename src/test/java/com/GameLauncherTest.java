@@ -47,7 +47,7 @@ public class GameLauncherTest {
     public void testMapSizeCheck3(){
         assertFalse("Testing whether a map size of 2 is invalid with 2 players", GameLauncher.mapSizeCheck(2, 2));
     }
-    @Test
+    /*@Test
     public void testGetDifficulty1(){
         assertEquals("Testing whether Hazardous difficulty is returned",'H',GameLauncher.getDifficulty());
 
@@ -57,7 +57,7 @@ public class GameLauncherTest {
 
         assertEquals("Testing whether Safe difficulty is returned",'S',GameLauncher.getDifficulty());
 
-    }
+    }  */
     @Test
     public void testValidChoice0(){
         assertTrue("Testing whether an input of 'H' is accepted",GameLauncher.validChoice('H'));
