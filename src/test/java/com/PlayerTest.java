@@ -35,7 +35,9 @@ public class PlayerTest {
     @Test
     public void testGetCurrentPosition(){
         Player p1 = new Player(0,new ConcreteTeam());
-        assertNotNull("",p1.getCurrentPosition());
+        Position newpos = new Position(2,2);
+        p1.updatePosition(newpos);
+        assertTrue("Testing the current position",p1.getCurrentPosition().equals(newpos));
 
     }
     @Test
@@ -68,13 +70,27 @@ public class PlayerTest {
 
     }
     @Test
-    public void testSetTileColour(){
+     public void testSetTileColourBlue(){
         Player p1 = new Player(0,new ConcreteTeam());
-        p1.setTileColour("green");
+        Position initpos = new Position(0,0);
+        p1.setInitialPosition(initpos);
+
+        Position newpos = new Position(1,1);
+        p1.updatePosition(newpos);
+        p1.setTileColour("blue");
+
+        assertTrue("Testing whether the current tile is set to the initial tile when a blue tile is encountered",p1.getCurrentPosition().equals(initpos));
+
 
     }
+
     @Test
     public void testUpdateMapDisplay(){
+        Player p1 = new Player(0,new ConcreteTeam());
+
+        p1.updateMapDisplay();
+
+        assertNotNull("Testing whether the css file has been updated",p1.getCSS());
 
     }
 

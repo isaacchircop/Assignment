@@ -14,14 +14,6 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class GameLauncherTest {
     @Test
-    public void testMain(){
-
-    }
-    @Test
-    public void testGetPlayers(){
-
-    }
-    @Test
     public void testPlayerNumberCheck1(){
         assertTrue("Testing whether 3 players are valid",GameLauncher.playerNumberCheck(3));
     }
@@ -29,11 +21,6 @@ public class GameLauncherTest {
     public void testPlayerNumberCheck2(){
         assertFalse("Testing whether 10 players are invalid",GameLauncher.playerNumberCheck(10));
     }
-    @Test
-    public void testGetMapSize(){
-        //assertThat();
-    }
-
     @Test
     public void testMapSizeCheck1(){
         assertTrue("Testing validity of map size of 10 for 6 players", GameLauncher.mapSizeCheck(10, 6));
@@ -47,17 +34,6 @@ public class GameLauncherTest {
     public void testMapSizeCheck3(){
         assertFalse("Testing whether a map size of 2 is invalid with 2 players", GameLauncher.mapSizeCheck(2, 2));
     }
-    /*@Test
-    public void testGetDifficulty1(){
-        assertEquals("Testing whether Hazardous difficulty is returned",'H',GameLauncher.getDifficulty());
-
-    }
-    @Test
-    public void testGetDifficulty2(){
-
-        assertEquals("Testing whether Safe difficulty is returned",'S',GameLauncher.getDifficulty());
-
-    }  */
     @Test
     public void testValidChoice0(){
         assertTrue("Testing whether an input of 'H' is accepted",GameLauncher.validChoice('H'));
@@ -70,8 +46,5 @@ public class GameLauncherTest {
     public void testInvalidChoice0(){
         assertFalse("Testing whether an input of 'g' is refused",GameLauncher.validChoice('g'));
     }
-    @Test
-    public void testGetTeams(){
-        //assertThat(GameLauncher.getTeams(6),instanceOf(Integer));
-    }
+
 }

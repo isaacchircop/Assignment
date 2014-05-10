@@ -20,7 +20,9 @@ public class MapTest {
     }
     @Test
     public void testGetAsHTMLTable(){
-        Map map = new Map(5, Difficulty.Safe);
+
+        Tile [][] mapArray = new
+        Map map = new Map(mapArray);
 
         String html = map.getAsHTMLTable();
 
@@ -84,7 +86,7 @@ public class MapTest {
     public void testGetTile(){
 
     }
-}       */
+}  */
 
 
 
