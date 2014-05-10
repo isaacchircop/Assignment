@@ -14,13 +14,10 @@ public class ConcreteTeamTest {
     @Test
     public void testUncoverTile(){
 
-
-
     }
     @Test
     public void testGetVisitedTilesCode(){
         ConcreteTeam t1 = new ConcreteTeam();
-
         assertNotNull("Testing whether the returned code is not null",t1.getVisitedTilesCode() );
     }
 }

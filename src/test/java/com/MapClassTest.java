@@ -17,7 +17,7 @@ public class MapClassTest {
         Position pos = new Position (4,2);
 
         assertTrue("Checking if tile (4,2) exists in a map of size 5", m.checkInRange(pos));
-    
+
     }
 
     @Test

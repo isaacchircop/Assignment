@@ -10,6 +10,7 @@ package com;
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 public class GameLauncherTest {
     @Test
@@ -30,7 +31,7 @@ public class GameLauncherTest {
     }
     @Test
     public void testGetMapSize(){
-
+        //assertThat();
     }
 
     @Test
@@ -48,13 +49,15 @@ public class GameLauncherTest {
     }
     @Test
     public void testGetDifficulty1(){
+        assertEquals("Testing whether Hazardous difficulty is returned",'H',GameLauncher.getDifficulty());
 
     }
     @Test
     public void testGetDifficulty2(){
 
-    }
+        assertEquals("Testing whether Safe difficulty is returned",'S',GameLauncher.getDifficulty());
 
+    }
     @Test
     public void testValidChoice0(){
         assertTrue("Testing whether an input of 'H' is accepted",GameLauncher.validChoice('H'));
@@ -69,6 +72,6 @@ public class GameLauncherTest {
     }
     @Test
     public void testGetTeams(){
-
+        //assertThat(GameLauncher.getTeams(6),instanceOf(Integer));
     }
 }
