@@ -87,10 +87,15 @@ public class PlayerTest {
     @Test
     public void testUpdateMapDisplay(){
         Player p1 = new Player(0,new ConcreteTeam());
+        Position initpos = new Position(0,0);
+        p1.setInitialPosition(initpos);
+
+        Position newpos = new Position(1,1);
+        p1.updatePosition(newpos);
 
         p1.updateMapDisplay();
 
-        assertNotNull("Testing whether the css file has been updated",p1.getCSS());
+        assertTrue("Testing whether getCSS() returns a CSS File Type", p1.getCSS().getPath().endsWith(".css"));
 
     }
 

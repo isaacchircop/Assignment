@@ -52,27 +52,6 @@ public class Map {
         return htmlTable;
 
     }
-    
-    public String getColour (Position position) {
-
-        int row = position.getRow();
-        int col = position.getCol();
-
-        switch (map[row][col]) {
-
-            case Grass:
-                return "green";
-
-            case Water:
-                return "blue";
-
-            default:
-                return "yellow";
-
-        }
-
-    }
-
     // Tested
     public int getLength() {
 
@@ -98,24 +77,6 @@ public class Map {
         int col = position.getCol();
 
         return (map[row][col] == Tile.Grass);
-
-    }
-
-    public boolean isWater(Position position) {
-
-        int row = position.getRow();
-        int col = position.getCol();
-
-        return (map[row][col] == Tile.Water);
-
-    }
-
-    public boolean isTreasure(Position position) {
-
-        int row = position.getRow();
-        int col = position.getCol();
-
-        return (map[row][col] == Tile.Treasure);
 
     }
 

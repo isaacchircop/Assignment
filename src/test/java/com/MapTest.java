@@ -1,92 +1,63 @@
-/*package com;
+package com;
 
 
 
 /**
  * Created with IntelliJ IDEA.
  * User: Daniel
- * Date: 10/05/14
- * Time: 00:04
+ * Date: 12/05/14
+ * Time: 12:53
  * To change this template use File | Settings | File Templates.
-
-import com.Map;
-import com.Position;
-import org.junit.Test;
+ */
+import org.junit.*;
 import static org.junit.Assert.*;
 public class MapTest {
     @Test
     public void testCreateMap(){
 
+        Tile [][] tiles = new Tile [5][5];
+        assertTrue("",Map.createMap(tiles) instanceof Map);
+
     }
     @Test
     public void testGetAsHTMLTable(){
 
-        Tile [][] mapArray = new
-        Map map = new Map(mapArray);
+        Tile [][] tiles = new Tile [5][5];
+        Map map = Map.createMap(tiles);
 
         String html = map.getAsHTMLTable();
 
-        assertTrue ("Testing if html code starts and ends with <table> tags", html.startsWith("<table") && html.endsWith("</table>"));
+        assertTrue ("Checking if html code starts and ends with <table> tags", html.startsWith("<table") && html.endsWith("</table>"));
 
-    }
-    @Test
-    public void testGetColour(){
 
     }
     @Test
     public void testGetLength(){
-        int size = 5;
-        Map map = new Map(5, Difficulty.Hazardous);
-
-        assertEquals("Checking if map of correct size is created", map.getLength(), size);
-
-
+        Tile tiles [][] = new Tile [5][5];
+        Map map = Map.createMap(tiles);
+        assertEquals("Testing the map length is 5",5,map.getLength());
     }
     @Test
-    public void testCheckInRange1(){
-        Map m = new Map(5, Difficulty.Safe);
-        Position pos = new Position (4,2);
+    public void testCheckInRange(){
+        Tile tiles [][] = new Tile [5][5];
+        Map map = Map.createMap(tiles);
+        Position pos1 = new Position(2,2);
 
-        assertTrue("Checking if tile (4,2) exists in a map of size 5", m.checkInRange(pos));
-
-
-    }
-    @Test
-    public void testCheckInRange2(){
-        Map m = new Map(5, Difficulty.Safe);
-        Position pos = new Position (6,2);
-
-        assertFalse("Checking if tile (6,2) exists in a map of size 5", m.checkInRange(pos));
+        assertTrue("Testing the checkInRange method", map.checkInRange(pos1));
 
     }
-
-    @Test
-    public void testCheckInRange3(){
-        Map m = new Map(5, Difficulty.Safe);
-        Position pos = new Position (6,2);
-
-        assertFalse("Checking if tile (6,2) exists in a map of size 5", m.checkInRange(pos));
-
-
-    }
-
     @Test
     public void testIsGrass(){
-
-    }
-    @Test
-    public void testIsWater(){
-
-    }
-    @Test
-    public void testIsTreasure(){
-
+        Tile tiles [][] = new Tile [5][5];
+        Map map = Map.createMap(tiles);
+        Position pos1 = new Position(2,2);
+        assertTrue("Testing the isGrass method",map.isGrass(pos1));
     }
     @Test
     public void testGetTile(){
-
+        Tile tiles [][] = new Tile [5][5];
+        Map map = Map.createMap(tiles);
+        Position pos1 = new Position(2,2);
+        assertTrue("Testing whether a tile is returned",map.getTile(pos1) instanceof Tile);
     }
-}  */
-
-
-
+}
