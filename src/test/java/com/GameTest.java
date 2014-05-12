@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     @Test
-    public void testValidMove(){
+    public void testValidMove1(){
         Tile [][] tiles = new Tile[5][5] ;
         Player p1 = new Player(0, new ConcreteTeam());
 
@@ -26,7 +26,31 @@ public class GameTest {
 
     }
     @Test
-    public void testGetNewPosition(){
+    public void testValidMove2(){
+        Tile [][] tiles = new Tile[5][5] ;
+        Player p1 = new Player(0, new ConcreteTeam());
+
+        Player [] players = {p1};
+        p1.setInitialPosition(new Position(0,0));
+        Game g1 = new Game(players,Map.createMap(tiles));
+
+        assertFalse("Testing whether a valid move has been inputted", g1.validMove(p1,'u'));
+
+    }
+    @Test
+    public void testValidMove3(){
+        Tile [][] tiles = new Tile[5][5] ;
+        Player p1 = new Player(0, new ConcreteTeam());
+
+        Player [] players = {p1};
+        p1.setInitialPosition(new Position(3,4));
+        Game g1 = new Game(players,Map.createMap(tiles));
+
+        assertFalse("Testing whether a valid move has been inputted", g1.validMove(p1,'p'));
+
+    }
+    @Test
+    public void testGetNewPosition1(){
         Tile [][] tiles = new Tile[5][5] ;
         Player p1 = new Player(0, new ConcreteTeam());
 
@@ -36,6 +60,45 @@ public class GameTest {
         Game g1 = new Game(players,Map.createMap(tiles));
 
         assertTrue("Testing whether the get new position method returns a position object", g1.getNewPosition(p1, 'u') instanceof Position);
+
+    }
+    @Test
+    public void testGetNewPosition2(){
+        Tile [][] tiles = new Tile[5][5] ;
+        Player p1 = new Player(0, new ConcreteTeam());
+
+        Player [] players = {p1};
+        p1.setInitialPosition(new Position(0,0));
+        p1.updatePosition(new Position(0,1));
+        Game g1 = new Game(players,Map.createMap(tiles));
+
+        assertTrue("Testing whether the get new position method returns a position object", g1.getNewPosition(p1, 'l') instanceof Position);
+
+    }
+    @Test
+    public void testGetNewPosition3(){
+        Tile [][] tiles = new Tile[5][5] ;
+        Player p1 = new Player(0, new ConcreteTeam());
+
+        Player [] players = {p1};
+        p1.setInitialPosition(new Position(0,0));
+        p1.updatePosition(new Position(0,1));
+        Game g1 = new Game(players,Map.createMap(tiles));
+
+        assertTrue("Testing whether the get new position method returns a position object", g1.getNewPosition(p1, 'r') instanceof Position);
+
+    }
+    @Test
+    public void testGetNewPosition4(){
+        Tile [][] tiles = new Tile[5][5] ;
+        Player p1 = new Player(0, new ConcreteTeam());
+
+        Player [] players = {p1};
+        p1.setInitialPosition(new Position(0,0));
+        p1.updatePosition(new Position(0,1));
+        Game g1 = new Game(players,Map.createMap(tiles));
+
+        assertTrue("Testing whether the get new position method returns a position object", g1.getNewPosition(p1, 'd') instanceof Position);
 
     }
     @Test

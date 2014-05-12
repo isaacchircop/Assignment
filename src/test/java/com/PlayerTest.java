@@ -83,6 +83,20 @@ public class PlayerTest {
 
 
     }
+    @Test
+    public void testSetTileColourYellowAndUpdateDisplay(){
+        Player p1 = new Player(0,new ConcreteTeam());
+        Position initpos = new Position(0,0);
+        p1.setInitialPosition(initpos);
+
+        Position newpos = new Position(1,1);
+        p1.updatePosition(newpos);
+        p1.setTileColour("yellow");
+
+        p1.updateMapDisplay();
+
+        assertTrue("Testing whether getCSS() returns a CSS File Type", p1.getCSS().getPath().endsWith(".css"));
+    }
 
     @Test
     public void testUpdateMapDisplay(){

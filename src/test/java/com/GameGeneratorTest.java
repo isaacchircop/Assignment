@@ -11,9 +11,16 @@ import org.junit.*;
 import static org.junit.Assert.*;
 public class GameGeneratorTest {
     @Test
-    public void testCreateGame(){
+    public void testCreateGame1(){
 
         GameGenerator g1 = new GameGenerator(5,3,5,'S');
+        assertNotNull("Testing whether a game is actually created",g1.createGame());
+
+    }
+    @Test
+    public void testCreateGame2(){
+
+        GameGenerator g1 = new GameGenerator(5,3,5,'H');
         assertNotNull("Testing whether a game is actually created",g1.createGame());
 
     }

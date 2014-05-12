@@ -35,24 +35,34 @@ public class MapTest {
     public void testGetLength(){
         Tile tiles [][] = new Tile [5][5];
         Map map = Map.createMap(tiles);
-        assertEquals("Testing the map length is 5",5,map.getLength());
+        assertEquals("Testing the map length is 5", 5, map.getLength());
     }
     @Test
-    public void testCheckInRange(){
+     public void testCheckInRange1(){
         Tile tiles [][] = new Tile [5][5];
         Map map = Map.createMap(tiles);
         Position pos1 = new Position(2,2);
 
-        assertTrue("Testing the checkInRange method", map.checkInRange(pos1));
+        assertTrue("Passing a valid range to checkInRange method", map.checkInRange(pos1));
 
     }
     @Test
-    public void testIsGrass(){
+    public void testCheckInRange2(){
+        Tile tiles [][] = new Tile [5][5];
+        Map map = Map.createMap(tiles);
+        Position pos1 = new Position(-1,2);
+
+        assertFalse("Passing an invalid range to checkInRange method", map.checkInRange(pos1));
+
+    }
+    @Test
+    public void testIsGrass1(){
         Tile tiles [][] = new Tile [5][5];
         Map map = Map.createMap(tiles);
         Position pos1 = new Position(2,2);
         assertTrue("Testing the isGrass method",map.isGrass(pos1));
     }
+
     @Test
     public void testGetTile(){
         Tile tiles [][] = new Tile [5][5];
