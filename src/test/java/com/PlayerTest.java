@@ -9,107 +9,97 @@ package com;
  * Time: 13:15
  * To change this template use File | Settings | File Templates.
  */
+import org.junit.Before;
 import org.junit.Test;
 import java.io.File;
 import static org.junit.Assert.*;
 
 public class PlayerTest {
+
+    Player player;
+    Position initpos, newpos;
+    @Before
+    public void initialisePLayer(){
+        player = new Player(0,new ConcreteTeam());
+        initpos = new Position(0,0);
+        newpos = new Position(1,1);
+    }
+
+
     @Test
     public void testGetHTML(){
-        Player player = new Player(0,new ConcreteTeam());
         File htmlFile = player.getHTML();
-
         assertTrue("Testing whether getHTML() returns an HTML File Type", htmlFile.getPath().endsWith(".html"));
-
-
     }
     @Test
     public void testGetCSS(){
-        Player player = new Player(0,new ConcreteTeam());
         File cssFile = player.getCSS();
-
         assertTrue("Testing whether getCSS() returns a CSS File Type", cssFile.getPath().endsWith(".css"));
-
-
     }
     @Test
     public void testGetCurrentPosition(){
-        Player p1 = new Player(0,new ConcreteTeam());
         Position newpos = new Position(2,2);
-        p1.updatePosition(newpos);
-        assertTrue("Testing the current position",p1.getCurrentPosition().equals(newpos));
+        player.updatePosition(newpos);
+        assertTrue("Testing the current position",player.getCurrentPosition().equals(newpos));
 
     }
     @Test
     public void testGetInitialPosition(){
         Position initPos = new Position (5,6);
-        Player p1 = new Player(0,new ConcreteTeam());
-        p1.setInitialPosition(initPos);
-
-        assertEquals("testing the get initial position method",initPos ,p1.getInitialPosition());
-
+        player.setInitialPosition(initPos);
+        assertEquals("testing the get initial position method",initPos ,player.getInitialPosition());
     }
     @Test
     public void testUpdatePosition(){
         Position initPos = new Position (5,6);
-        Player p1 = new Player(0,new ConcreteTeam());
-        p1.setInitialPosition(initPos);
+        player.setInitialPosition(initPos);
 
         Position newpos = new Position(7,7);
-        p1.updatePosition(newpos);
-        assertEquals("Testing the update position method", newpos, p1.getCurrentPosition());
+        player.updatePosition(newpos);
+        assertEquals("Testing the update position method", newpos, player.getCurrentPosition());
 
     }
     @Test
     public void testSetInitialPosition(){
-        Player p1 = new Player(0,new ConcreteTeam());
         Position initpos = new Position(4,3);
-        p1.setInitialPosition(initpos);
+        player.setInitialPosition(initpos);
 
-        assertTrue("Testing the set initial position method", p1.getInitialPosition().equals(initpos));
+        assertTrue("Testing the set initial position method", player.getInitialPosition().equals(initpos));
 
     }
     @Test
      public void testSetTileColourBlue(){
-        Player p1 = new Player(0,new ConcreteTeam());
-        Position initpos = new Position(0,0);
-        p1.setInitialPosition(initpos);
+        player.setInitialPosition(initpos);
 
-        Position newpos = new Position(1,1);
-        p1.updatePosition(newpos);
-        p1.setTileColour("blue");
+        player.updatePosition(newpos);
+        player.setTileColour("blue");
 
-        assertTrue("Testing whether the current tile is set to the initial tile when a blue tile is encountered",p1.getCurrentPosition().equals(initpos));
+        assertTrue("Testing whether the current tile is set to the initial tile when a blue tile is encountered",player.getCurrentPosition().equals(initpos));
 
 
     }
     @Test
     public void testSetTileColourYellowAndUpdateDisplay(){
-        Player p1 = new Player(0,new ConcreteTeam());
-        Position initpos = new Position(0,0);
-        p1.setInitialPosition(initpos);
+        player.setInitialPosition(initpos);
 
-        Position newpos = new Position(1,1);
-        p1.updatePosition(newpos);
-        p1.setTileColour("yellow");
+        player.updatePosition(newpos);
+        player.setTileColour("yellow");
 
-        p1.updateMapDisplay();
+        player.updateMapDisplay();
 
-        assertTrue("Testing whether getCSS() returns a CSS File Type", p1.getCSS().getPath().endsWith(".css"));
+        assertTrue("Testing whether getCSS() returns a CSS File Type", player.getCSS().getPath().endsWith(".css"));
     }
 
     @Test
     public void testUpdateMapDisplay(){
-        Player p1 = new Player(0,new ConcreteTeam());
-        Position initpos = new Position(0,0);
-        p1.setInitialPosition(initpos);
+        player.setInitialPosition(initpos);
 
         Position newpos = new Position(1,1);
-        p1.updatePosition(newpos);
+        player.updatePosition(newpos);
 
-        p1.updateMapDisplay();
+        player.updateMapDisplay();
 
-        assertTrue("Testing whether getCSS() returns a CSS File Type", p1.getCSS().getPath().endsWith(".css"));
+        assertTrue("Testing whether getCSS() returns a CSS File Type", player.getCSS().getPath().endsWith(".css"));
 
     }
 
