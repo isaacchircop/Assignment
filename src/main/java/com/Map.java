@@ -1,7 +1,5 @@
 package com;
 
-import java.util.*;
-
 public class Map {
 
     private static Map instance;

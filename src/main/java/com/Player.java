@@ -5,12 +5,12 @@ import java.io.*;
 public class Player {
     
     private Position initialPosition, currentPosition;
-    private ConcreteTeam team;
+    private AbstractTeam team;
     private File html, css;
     private boolean treasureFound;
     public int playerNumber;
     
-    public Player (int playerNumber, ConcreteTeam team) {
+    public Player (int playerNumber, AbstractTeam team) {
 
         treasureFound = false;
 
@@ -31,13 +31,6 @@ public class Player {
     public File getHTML() {
     
         return html;
-    
-    }
-
-    // Tested
-    public File getCSS() {
-    
-        return css;
     
     }
 
@@ -88,7 +81,7 @@ public class Player {
 
         String colour;
 
-        if (treasureFound == true) {
+        if (treasureFound) {
 
             colour = "yellow";
 

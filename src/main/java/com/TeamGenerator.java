@@ -1,13 +1,12 @@
 package com;
 
 import java.util.Random;
-import java.util.ArrayList;
 
 public class TeamGenerator {
 
     private int numOfPlayers, numOfTeams;
 
-    private ConcreteTeam[] teamsPool;
+    private AbstractTeam[] teamsPool;
 
     public TeamGenerator (int numOfPlayers, int numOfTeams) {
 

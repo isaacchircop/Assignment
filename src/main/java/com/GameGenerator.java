@@ -20,12 +20,6 @@ public class GameGenerator {
         TeamGenerator teamGenerator = new TeamGenerator(numOfPlayers, numOfTeams);
         Player[] players = teamGenerator.createTeams();
 
-        for (int i = 0; i < players.length; i++) {
-
-            System.out.println ("Player Index: " + i + " Player Number: " + players[i].playerNumber);
-
-        }
-
         // Generate map
         MapGenerator mapGenerator = getGenerator();
         Map map = mapGenerator.createMap(mapSize);

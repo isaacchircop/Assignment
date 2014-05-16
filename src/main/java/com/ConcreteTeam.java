@@ -6,6 +6,8 @@ public class ConcreteTeam implements AbstractTeam {
 
     private String visitedTilesCode = "";
 
+    public ConcreteTeam() {}
+
     @Override
     public void uncoverTile(Position pos, String colour) {
 

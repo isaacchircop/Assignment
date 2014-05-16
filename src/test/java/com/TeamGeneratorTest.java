@@ -1,12 +1,5 @@
 package com;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Daniel
- * Date: 08/05/14
- * Time: 23:49
- * To change this template use File | Settings | File Templates.
- */
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -26,6 +19,7 @@ public class TeamGeneratorTest {
         }
         return flag;
     }
+
     @Test
     public void testCreateTeams(){
 
