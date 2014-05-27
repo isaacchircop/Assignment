@@ -131,15 +131,25 @@ public class GameLauncher {
 
         int teams = k.nextInt();
 
-        while (teams > players) {
+        while (teams > players || teams == 0) {
 
-            System.out.println ("\nInvalid input!  Team number must be smaller than number of players.\n");
+            if (teams == 0) {
+                System.out.println("\nInvalid input! Number of teams cannot equal 0.\n");
 
-            System.out.print ("Number of Teams: ");
+                System.out.print ("Number of Teams: ");
 
-            teams = k.nextInt();
+                teams = k.nextInt();
+            }
+            else {
+                System.out.println ("\nInvalid input!  Team number must be smaller than number of players.\n");
+
+                System.out.print ("Number of Teams: ");
+
+                teams = k.nextInt();
+            }
 
         }
+
 
         return teams;
 
